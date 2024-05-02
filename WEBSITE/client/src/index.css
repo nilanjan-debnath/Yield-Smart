@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+iframe {
+    display: none;
+}
+
+body {
+    position: static !important;
+    top: 0px !important;
+}
+
+span {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
