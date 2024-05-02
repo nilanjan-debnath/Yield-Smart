@@ -1,4 +1,0 @@
-JWT_SECRET = "hellohello1234"
-MONGO = "mongodb+srv://nilanjand172:jKSOKQ1s0Aya02sK@regucomply.gawk51w.mongodb.net/"
-GEMINI_KEY = "AIzaSyD4m_SJwfJStsKL2VN7bbjAbC50t-GSN7c"
-New = "demo"
