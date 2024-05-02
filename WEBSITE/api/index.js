@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import geminiRoute from "./routes/gmini.route.js";
 import {GoogleGenerativeAI} from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI("AIzaSyD4m_SJwfJStsKL2VN7bbjAbC50t-GSN7c");
+const genAI = new GoogleGenerativeAI("api_key");
 
 
 dotenv.config();
