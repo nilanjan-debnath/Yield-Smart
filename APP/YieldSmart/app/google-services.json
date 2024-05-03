@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "565775619582",
+    "firebase_url": "https://yield-smart-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "yield-smart",
+    "storage_bucket": "yield-smart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565775619582:android:d3217aecf3e1536f189caf",
+        "android_client_info": {
+          "package_name": "com.example.yieldsmart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIdLHdC6iXjE5MAbm0foy9Mxy5ahkkGzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
