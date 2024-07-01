@@ -5,6 +5,7 @@ import time
 import pickle
 import threading
 from pathlib import Path
+from dotenv import load_dotenv
 from PIL import Image, ImageTk
 import google.generativeai as genai
 
@@ -23,9 +24,9 @@ for _ in posList:
 processing = False
 stop_event = threading.Event()
 
-# TODO:  ENTER THE GOOGLE_API_KEY HERE
-GOOGLE_API_KEY="REPLACE_WITH_YOUR_API_KEY" 
-genai.configure(api_key=GOOGLE_API_KEY)
+load_dotenv()
+API_KEY=os.getenv('GOOGLE_API_KEY')
+genai.configure(api_key=API_KEY)
 generation_config = {
     "temperature": 0.4,
     "top_p": 1,

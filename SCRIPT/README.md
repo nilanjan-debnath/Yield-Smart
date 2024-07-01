@@ -6,7 +6,7 @@
 `env\Scripts\activate`
 ## Install the required libraries using this command
 `python.exe -m pip install --upgrade pip`<br>
-`pip install pathlib pillow opencv-python google-generativeai gdown`
+`pip install pathlib pillow python-dotenv opencv-python google-generativeai gdown`
 
 ## Add your google api key at line 26
 `GOOGLE_API_KEY="REPLACE_WITH_YOUR_API_KEY" `
