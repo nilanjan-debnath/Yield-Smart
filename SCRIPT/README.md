@@ -1,3 +1,9 @@
+# Preview
+![Screenshot (303)](https://github.com/nilanjan-debnath/Yield-Smart/assets/91799113/0f14a4e3-50a5-4a47-bb80-a783006f7085)
+
+![image](https://github.com/nilanjan-debnath/Yield-Smart/assets/91799113/4ebc7e06-28b9-41e5-b34b-fab8147cbbd0)
+
+
 # Running the scripts
 ## Run all the command on the terminal inside **SCRIPT** directory
 
