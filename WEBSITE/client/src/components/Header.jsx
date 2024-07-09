@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 export default function Header() {
   const {currentUser} = useSelector((state)=> state.user);
-  console.log(currentUser);
 
   return (
     <header id='header' className='px-4 py-2 bg-blue-500'>

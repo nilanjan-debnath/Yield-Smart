@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import Disease from './pages/Disease';
+import Chat from './pages/Chat';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path='/disease' element={<Disease />} />
         <Route element={<PrivateRoute />} >
           <Route path='/profile' element={<Profile />} />
+          <Route path='/chat' element={<Chat />} />
         </Route>
       </Routes>
     </BrowserRouter>
