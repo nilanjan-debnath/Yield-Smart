@@ -3,3 +3,5 @@ MONGO = 'mongodb+srv://nilanjandavi172:jKSOKQ1s0Aya02sK@regucomply.gawk51w.mongo
 JWT_SECRET = "hellohelloavi"
 
 VITE_FIREBASE_API_KEY = 'AIzaSyBDQ6caZV8hsiHGb3QhIISBmFZQrfbJybYavi'
+
+------------------avi-------------
