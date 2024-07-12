@@ -2,16 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-iframe {
-    display: none;
-}
-
-body {
-    position: static !important;
-    top: 0px !important;
-}
-
-span {
-    font-weight: bold;
-    font-size: 1.2rem;
-}
+@layer utilities {
+    .scrollbar-custom {
+      scrollbar-width: thin; /* For Firefox */
+      /* scrollbar-color: #000 #888; */
+      scrollbar-color: transparent;
+    }
+  
+    .scrollbar-custom::-webkit-scrollbar {
+      width: 10px;
+    }
+  
+    .scrollbar-custom::-webkit-scrollbar-track {
+      background: #888;
+      border-radius: 5px;
+    }
+  
+    .scrollbar-custom::-webkit-scrollbar-thumb {
+      background: #000;
+      border-radius: 5px;
+    }
+  
+    .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }

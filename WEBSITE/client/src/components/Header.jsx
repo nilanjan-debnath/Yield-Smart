@@ -19,7 +19,7 @@ export default function Header() {
         </Link>
         {currentUser ? (
           <div className="flex items-center gap-4">
-        <Link to='/disease' className='text-xl font-semibold'>Disease</Link>
+        <Link to='/chat' className='text-xl font-semibold'>Chat</Link>
 
           <Link to='/profile'>
           <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white mx-2">
