@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import geminiRoute from "./routes/gmini.route.js";
 import {GoogleGenerativeAI} from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI("api_key");
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 
 dotenv.config();
@@ -18,7 +20,15 @@ mongoose.connect(process.env.MONGO).then(() => {
 
 const app = express();
 
+// const corsOptions = {
+//     origin: '',
+//     optionsSuccessStatus: 200,
+//   };
+
+app.use(cors());
+
 app.use(express.json());
+app.use(cookieParser());
 
 app.listen(3000, ()=> {
     console.log("server is running port 3000");

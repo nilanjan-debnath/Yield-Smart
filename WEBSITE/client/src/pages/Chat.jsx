@@ -11,17 +11,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useDispatch } from 'react-redux';
 import { conversationIdFailure, conversationIdSuccess } from '../redux/conversationId/conversationSlice';
-import LoadingGif from "../../public/images/loading2.gif";
 import ShowMessage from '../components/ShowMessage';
 
 export default function Chat() {
 
     const [inputMessage, setInputMessage] = useState('');
-    const [chatData, setChatData] = useState({
-        input: '',
-        image: '',
-        output: ''
-    });
     const fileRef = useRef(null);
     const [imageFile, setImageFile] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
@@ -33,8 +27,11 @@ export default function Chat() {
     const [conversationId, setConversationId] = useState(currentConversationId);
     const [conversationData, setConversationData] = useState(null);
     const [messageLoading, setMessageLoading] = useState(false);
-    const [allChat, setAllChat] = useState(null);
-    console.log("allChat: ", allChat);
+    const [allChat, setAllChat] = useState([]);
+    console.log("allChat:", allChat);
+    const [fetchLoading, setFetchLoading] = useState(false);
+    const [answer, setAnswer] = useState('');
+    // console.log("allChat: ", allChat);
     // console.log("conversationid: ", conversationId);
     // console.log("currentConversation: ", currentConversationId);
 
@@ -78,11 +75,25 @@ export default function Chat() {
             const userDocRef = doc(db, 'users', currentUser._id);
             const userDoc = await getDoc(userDocRef);
 
+            setAllChat((prev) => [
+                ...prev,
+                {
+                    input: inputMessage,
+                    image: imageUrl,
+                    output: '',
+                    datetime: showDateTime(),
+                }
+             ]);
+
             const textMessage = {
                 input: inputMessage,
                 output: '',
-                file: imageUrl,
+                image: imageUrl,
+                datetime: showDateTime(),
             };
+            
+            setInputMessage('');
+            setImageUpload(0);
 
             if (userDoc.exists()) {
                 const userData = userDoc.data();
@@ -120,10 +131,11 @@ export default function Chat() {
                     timestamp: serverTimestamp(),
                 });
             }
-
-            setInputMessage('');
+            
+            await handleInputAnswer();
+            // setInputMessage('');
             setImageFile(null);
-            setMessageLoading(false);
+            setImageUrl('');
             console.log("done");
         } catch (error) {
             console.log(error);
@@ -183,6 +195,7 @@ export default function Chat() {
             const uniqId = uuidv4();
             console.log("chat id is given");
             setConversationId(uniqId);
+            setAllChat([]);
             dispatch(conversationIdSuccess(uniqId));
         } catch (error) {
             console.log(error);
@@ -194,14 +207,17 @@ export default function Chat() {
         const fetchConversationMessage = async () => {
             if (!currentConversationId) return;
             try {
+                setFetchLoading(true);
                 const messageDocRef = doc(db, 'conversations', conversationId);
                 const messageDoc = await getDoc(messageDocRef);
                 if (messageDoc.exists()) {
                     const messageData = messageDoc.data();
                     setAllChat(messageData.texts);
                 }
+                setFetchLoading(false);
             } catch (error) {
                 console.log(error);
+                setFetchLoading(false);
             }
         };
         fetchConversationMessage();
@@ -212,6 +228,53 @@ export default function Chat() {
             divRef.current.scrollTop = divRef.current.scrollHeight;
         }
     }, [allChat]);
+
+    const handleInputAnswer = async () => {
+        try{
+            const res = await fetch("/api/user/output", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: conversationId,
+                    index: allChat.length
+                }),
+            });
+
+            const data = await res.json();
+            if(data.success === false){
+                console.log(data.message);
+                setMessageLoading(false);
+                return;
+            }
+            setAnswer(data.output);
+            setMessageLoading(false);
+            console.log("bot output: ", data.output);
+            setAllChat((prev) => {
+                const newChat = [...prev];
+                newChat[newChat.length - 1].output = data.output;
+                return newChat;
+            })
+        }catch(error){
+            console.log("Bot error: ", error);
+            setMessageLoading(false);
+        }
+    };
+
+    const showDateTime = () => {
+        const date = new Date();
+        const options = {
+            hour: '2-digit',
+            minute: '2-digit',
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        }
+
+        const formatedDateTime = date.toLocaleString('en-us', options);
+        return formatedDateTime;
+    }
 
     return (
         <div className='w-full h-[91vh]'>
@@ -233,9 +296,14 @@ export default function Chat() {
                         )}
                     </div>
                 </div>
-                <div className="sideRight w-[85%] h-full">
+                <div className="sideRight w-[85%] h-full relative">
                     <div ref={divRef} className="body w-full h-[85%] px-28 py-4 overflow-y-auto scrollbar-custom">
-                        {allChat && allChat.map((chat, index) =>
+                    {fetchLoading && (
+                        <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#36ADFF]">
+                            <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
+                        </div>
+                    )}
+                        {(!fetchLoading && allChat.length != 0) && allChat.map((chat, index) =>
                             <ShowMessage key={index} data={chat} />
                         )}
                     </div>
@@ -255,7 +323,9 @@ export default function Chat() {
                             <input ref={fileRef} onChange={(e) => setImageFile(e.target.files[0])} type="file" hidden accept='image/*' />
                             <input disabled={messageLoading} onChange={(e) => setInputMessage(e.target.value)} placeholder='Ask some thing?' className='px-4 py-2 rounded-md outline-none border border-black w-[88%]' value={inputMessage}></input>
                             <button disabled={messageLoading} onClick={() => fileRef.current.click()} className="p-3 transition-all duration-300 hover:bg-gray-300 rounded-full"><MdOutlineAttachFile className='text-2xl' /></button>
-                            <button disabled={messageLoading || inputMessage == ''} onClick={handleSend} className="px-4 w-16 py-2 rounded-md bg-blue-500 text-white flex justify-center items-center disabled:bg-blue-400"><VscSend className='text-2xl' /></button>
+                            <button disabled={messageLoading || inputMessage == ''} onClick={handleSend} className="px-4 w-16 py-2 rounded-md bg-blue-500 text-white flex justify-center items-center disabled:bg-blue-400">
+                                {messageLoading? <div className="animate-spin h-7 w-7 border-4 border-t-4 border-t-white border-gray-300 rounded-full" ></div> : <VscSend className='text-2xl' />}
+                                </button>
                         </div>
                     </div>
                 </div>
