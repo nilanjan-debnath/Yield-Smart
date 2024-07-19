@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { VscSend } from "react-icons/vsc";
 import { MdOutlineAttachFile } from "react-icons/md";
+import { IoImageOutline } from "react-icons/io5";
 
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
@@ -28,9 +29,10 @@ export default function Chat() {
     const [conversationData, setConversationData] = useState(null);
     const [messageLoading, setMessageLoading] = useState(false);
     const [allChat, setAllChat] = useState([]);
-    console.log("allChat:", allChat);
     const [fetchLoading, setFetchLoading] = useState(false);
     const [answer, setAnswer] = useState('');
+    const [edit, setEdit] = useState(null);
+    console.log("edit: ", edit);
     // console.log("allChat: ", allChat);
     // console.log("conversationid: ", conversationId);
     // console.log("currentConversation: ", currentConversationId);
@@ -238,10 +240,11 @@ export default function Chat() {
                 },
                 body: JSON.stringify({
                     id: conversationId,
-                    index: allChat.length
+                    index: (edit===null? allChat.length : edit),
                 }),
             });
-
+            console.log("edit index: ", edit);
+            console.log("conversationId: ", conversationId);
             const data = await res.json();
             if(data.success === false){
                 console.log(data.message);
@@ -250,10 +253,15 @@ export default function Chat() {
             }
             setAnswer(data.output);
             setMessageLoading(false);
+            setEdit(null);
             console.log("bot output: ", data.output);
             setAllChat((prev) => {
                 const newChat = [...prev];
-                newChat[newChat.length - 1].output = data.output;
+                if(edit === null){
+                    newChat[newChat.length - 1].output = data.output;
+                }else{
+                    newChat[edit].output = data.output;
+                }
                 return newChat;
             })
         }catch(error){
@@ -297,14 +305,14 @@ export default function Chat() {
                     </div>
                 </div>
                 <div className="sideRight w-[85%] h-full relative">
-                    <div ref={divRef} className="body w-full h-[85%] px-28 py-4 overflow-y-auto scrollbar-custom">
+                    <div ref={divRef} className="body w-full h-[85%] px-32 py-4 overflow-y-auto scrollbar-custom">
                     {fetchLoading && (
                         <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#36ADFF]">
                             <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
                         </div>
                     )}
                         {(!fetchLoading && allChat.length != 0) && allChat.map((chat, index) =>
-                            <ShowMessage key={index} data={chat} />
+                            <ShowMessage key={index} data={chat} index={index} setEdit={setEdit} conversationId={conversationId} showDateTime={showDateTime} db={db} setAllChat={setAllChat} handleInputAnswer={handleInputAnswer} />
                         )}
                     </div>
                     <div className="footer w-full h-[15%] border-t-4 border-gray-200 flex flex-col items-center">
@@ -322,7 +330,7 @@ export default function Chat() {
                         <div className="flex bg-white w-full px-6 gap-3">
                             <input ref={fileRef} onChange={(e) => setImageFile(e.target.files[0])} type="file" hidden accept='image/*' />
                             <input disabled={messageLoading} onChange={(e) => setInputMessage(e.target.value)} placeholder='Ask some thing?' className='px-4 py-2 rounded-md outline-none border border-black w-[88%]' value={inputMessage}></input>
-                            <button disabled={messageLoading} onClick={() => fileRef.current.click()} className="p-3 transition-all duration-300 hover:bg-gray-300 rounded-full"><MdOutlineAttachFile className='text-2xl' /></button>
+                            <button disabled={messageLoading} onClick={() => fileRef.current.click()} className="p-3 transition-all duration-300 bg-gray-100 hover:bg-gray-300 rounded-full"><IoImageOutline className='text-2xl' /></button>
                             <button disabled={messageLoading || inputMessage == ''} onClick={handleSend} className="px-4 w-16 py-2 rounded-md bg-blue-500 text-white flex justify-center items-center disabled:bg-blue-400">
                                 {messageLoading? <div className="animate-spin h-7 w-7 border-4 border-t-4 border-t-white border-gray-300 rounded-full" ></div> : <VscSend className='text-2xl' />}
                                 </button>
