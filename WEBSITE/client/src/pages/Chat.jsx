@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { VscSend } from "react-icons/vsc";
-import { MdOutlineAttachFile } from "react-icons/md";
+import { IoIosMenu } from "react-icons/io";
+import { RxCross2 } from "react-icons/rx";
 import { IoImageOutline } from "react-icons/io5";
 
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
@@ -22,7 +23,6 @@ export default function Chat() {
     const [imageUrl, setImageUrl] = useState('');
     const [imageUpload, setImageUpload] = useState(0);
     const [imageUploadError, setImageUploadError] = useState(null);
-    // console.log(imageUrl);
     const { currentUser } = useSelector((state) => state.user);
     const { currentConversationId } = useSelector((state) => state.conversation)
     const [conversationId, setConversationId] = useState(currentConversationId);
@@ -32,7 +32,8 @@ export default function Chat() {
     const [fetchLoading, setFetchLoading] = useState(false);
     const [answer, setAnswer] = useState('');
     const [edit, setEdit] = useState(null);
-    console.log("edit: ", edit);
+    const [isOpen, setIsOpen] = useState(false);
+    const leftDivRef = useRef(null);
     // console.log("allChat: ", allChat);
     // console.log("conversationid: ", conversationId);
     // console.log("currentConversation: ", currentConversationId);
@@ -186,6 +187,7 @@ export default function Chat() {
         try {
             dispatch(conversationIdSuccess(Id));
             setConversationId(Id);
+            setIsOpen(false);
         } catch (error) {
             console.log(error);
             dispatch(conversationIdFailure(error));
@@ -282,14 +284,28 @@ export default function Chat() {
 
         const formatedDateTime = date.toLocaleString('en-us', options);
         return formatedDateTime;
-    }
+    };
+
+    const handleClickOutside = (event) => {
+        if (window.innerWidth< 768 && leftDivRef.current && !leftDivRef.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }, []);
 
     return (
         <div className='w-full h-[91vh]'>
-            <div className="flex w-full h-[91vh]">
-                <div className="sideLeft w-[15%] h-full py-3 flex items-center flex-col overflow-y-auto border-r-4 border-gray-300">
+            <div className="flex w-full h-[91vh] relative overflow-hidden">
+                <button onClick={()=> setIsOpen(!isOpen)} className="md:hidden absolute top-2 right-1 p-1 bg-gray-200 rounded-full z-30">{isOpen? <RxCross2 className='text-2xl' />:<IoIosMenu className='text-2xl' />}</button>
+                <div ref={leftDivRef} className={`sideLeft absolute top-0 w-[70%] h-full py-3 flex items-center flex-col overflow-y-auto border-r-4 border-gray-300 z-40 bg-white transition-all duration-500 md:static sm:w-[60%] md:w-[30%] xl:w-[20%] 2xl:w-[15%] ${isOpen? 'left-0' : '-left-[100%]'} scrollbar-custom`}>
                     <button onClick={createNewChat} className="px-4 py-2 bg-blue-500 text-white rounded-md w-[90%] h-10">New Chat</button>
-                    <div className="w-full flex flex-col items-center gap-3 my-4 scrollbar-custom">
+                    <div className="w-full flex flex-col items-center gap-3 my-4 scrollbar-custom overflow-y-auto">
                         <h3 className="w-[90%] px-1 font-semibold mt-2 text-gray-600 text-sm">All Chats</h3>
                         {(conversationData && !conversationData.includes(conversationId)) &&
                             <div className="w-[90%] h-10 border bg-white rounded-lg overflow-hidden">
@@ -304,15 +320,21 @@ export default function Chat() {
                         )}
                     </div>
                 </div>
-                <div className="sideRight w-[85%] h-full relative">
-                    <div ref={divRef} className="body w-full h-[85%] px-32 py-4 overflow-y-auto scrollbar-custom">
+                <div className="sideRight w-full h-full relative md:w-[70%] xl:w-[80%] 2xl:w-[85%]">
+                    <div ref={divRef} className={`body w-full h-[85%] px-2 py-4 overflow-y-auto scrollbar-custom lg:px-32 transition-all duration-500 ${isOpen? 'opacity-60' : ''}`}>
                     {fetchLoading && (
                         <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#36ADFF]">
                             <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
                         </div>
                     )}
+                    {(!fetchLoading && allChat.length) === 0 && (
+                        <div className="w-full h-full flex flex-col justify-center textImage">
+                            <h1 className="text-[5rem] font-semibold px-4 sm:px-8 leading-none lg:px-0">Hello,</h1>
+                            <h1 className="text-6xl lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[5rem] font-semibold px-4 sm:px-8 py-2">How can I help you today?</h1>
+                        </div>
+                    )}
                         {(!fetchLoading && allChat.length != 0) && allChat.map((chat, index) =>
-                            <ShowMessage key={index} data={chat} index={index} setEdit={setEdit} conversationId={conversationId} showDateTime={showDateTime} db={db} setAllChat={setAllChat} handleInputAnswer={handleInputAnswer} />
+                            <ShowMessage key={index} data={chat} index={index} setEdit={setEdit} conversationId={conversationId} showDateTime={showDateTime} db={db} setAllChat={setAllChat} handleInputAnswer={handleInputAnswer} isOpen={isOpen} />
                         )}
                     </div>
                     <div className="footer w-full h-[15%] border-t-4 border-gray-200 flex flex-col items-center">
@@ -327,12 +349,12 @@ export default function Chat() {
                                 <p className="text-green-400 font-semibold px-8">File uploaded successfully</p>
                             )}
                         </div>
-                        <div className="flex bg-white w-full px-6 gap-3">
+                        <div className="flex bg-white w-full px-2 gap-1 sm:px-6 sm:gap-3">
                             <input ref={fileRef} onChange={(e) => setImageFile(e.target.files[0])} type="file" hidden accept='image/*' />
                             <input disabled={messageLoading} onChange={(e) => setInputMessage(e.target.value)} placeholder='Ask some thing?' className='px-4 py-2 rounded-md outline-none border border-black w-[88%]' value={inputMessage}></input>
-                            <button disabled={messageLoading} onClick={() => fileRef.current.click()} className="p-3 transition-all duration-300 bg-gray-100 hover:bg-gray-300 rounded-full"><IoImageOutline className='text-2xl' /></button>
-                            <button disabled={messageLoading || inputMessage == ''} onClick={handleSend} className="px-4 w-16 py-2 rounded-md bg-blue-500 text-white flex justify-center items-center disabled:bg-blue-400">
-                                {messageLoading? <div className="animate-spin h-7 w-7 border-4 border-t-4 border-t-white border-gray-300 rounded-full" ></div> : <VscSend className='text-2xl' />}
+                            <button disabled={messageLoading || isOpen} onClick={() => fileRef.current.click()} className={`p-3 transition-all duration-300 bg-gray-100  rounded-full ${isOpen? '' : 'hover:bg-gray-300'}`}><IoImageOutline className='text-2xl' /></button>
+                            <button disabled={messageLoading || inputMessage == '' || isOpen} onClick={handleSend} className="px-4 w-auto py-1 rounded-md bg-blue-500 text-white flex justify-center items-center disabled:bg-blue-400 sm:w-16 sm:py-2">
+                                {messageLoading? <div className="animate-spin h-7 w-7 border-4 border-t-4 border-t-white border-gray-300 rounded-full" ></div> : <VscSend className='text-xl sm:text-2xl' />}
                                 </button>
                         </div>
                     </div>
