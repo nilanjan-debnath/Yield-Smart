@@ -141,7 +141,7 @@ export default function Home() {
           <div style={{ boxShadow: "2px 4px 9px 2px" }} className="left w-full h-[20rem] rounded-lg overflow-hidden sm:hidden md:block md:w-1/2 lg:w-[40%]">
             <img src="./images/solution image.jpg" alt="" className="w-full h-full object-cover" />
           </div>
-          <div className="right h-[29rem] rounded-lg w-full px-1 py-4 border border-white flex bg-transparent backdrop-filter backdrop-blur-sm sm:px-4 sm:w-[95%] md:w-[50%] sm:h-[22rem]">
+          <div className="right h-[29rem] rounded-lg w-full px-1 py-4 border border-white flex bg-transparent backdrop-filter backdrop-blur-sm sm:px-4 sm:w-[95%] md:w-[50%] sm:h-[22rem] text-white sm:text-black">
             <div className="py-3 px-1 flex flex-col items-center gap-4 sm:px-3">
               <p className="text-center text-sm sm:text-base">Real-time insights revolutionize farming, enabling proactive decisions to
                 optimize crop health and resource usage. With advanced technology, farmers boost efficiency,
@@ -164,8 +164,8 @@ export default function Home() {
         </div>
       </div>
       <div style={{ background: "url('https://www.growindigo.co.in/wp-content/uploads/2024/01/About-Grow-Indigo-Resized.jpg') no-repeat", backgroundSize: "cover" }}
-        id="benefits" className="w-full h-screen px-4 py-8 text-white opacity-90">
-        <h1 className="text-3xl my-8 text-center font-semibold">Benefits Will You Get</h1>
+        id="benefits" className="w-full h-screen px-4 py-4 text-white opacity-90 sm:py-8">
+        <h1 className="text-2xl my-2 text-center font-semibold sm:my-8 sm:text-3xl">Benefits Will You Get</h1>
         <div className="flex flex-col justify-center gap-4 sm:flex-row sm:gap-2 md:gap-8">
           <div className="left border-4 w-full p-8 rounded-lg bg-transparent backdrop-filter backdrop-blur-md sm:w-1/2 sm:px-4 md:px-8 lg:w-[35%]">
             <ul className="flex flex-col gap-4 text-lg">
