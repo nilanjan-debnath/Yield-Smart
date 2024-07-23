@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 
 dotenv.config();
@@ -15,12 +16,9 @@ mongoose.connect(process.env.MONGO).then(() => {
     console.log(err);
 });
 
-const app = express();
+const __dirname = path.resolve();
 
-// const corsOptions = {
-//     origin: '',
-//     optionsSuccessStatus: 200,
-//   };
+const app = express();
 
 app.use(cors());
 
@@ -35,6 +33,12 @@ app.listen(3000, ()=> {
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
+
 // error handle middleware
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
@@ -46,16 +50,3 @@ app.use((err, req, res, next) => {
     });
 });
 
-// async function run() {
-//     // For text-only input, use the gemini-pro model
-//     const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-  
-//     const prompt = "Write a story about a magic backpack."
-  
-//     const result = await model.generateContent(prompt);
-//     const response = await result.response;
-//     const text = response.text();
-//     console.log(text);
-// }
-
-// run();
