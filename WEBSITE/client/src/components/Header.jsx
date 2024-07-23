@@ -7,7 +7,7 @@ export default function Header() {
   const {currentUser} = useSelector((state)=> state.user);
 
   return (
-    <header id='header' className='px-2 py-2 bg-blue-500 sm:px-4'>
+    <header id='header' className='px-2 py-2 bg-blue-500 sm:px-4 h-[9dvh]'>
       <div className="text-white flex justify-between items-center">
         <Link to='/'>
           <div className="logo flex gap-2 items-center">

@@ -297,8 +297,8 @@ export default function Chat() {
       }, []);
 
     return (
-        <div className='w-full h-[91vh]'>
-            <div className="flex w-full h-[91vh] relative overflow-hidden">
+        <div className='w-full h-[91dvh]'>
+            <div className="flex w-full h-[91dvh] relative overflow-hidden">
                 <button onClick={()=> setIsOpen(!isOpen)} className="md:hidden absolute top-2 right-1 p-1 bg-gray-200 rounded-full z-30">{isOpen? <RxCross2 className='text-2xl' />:<IoIosMenu className='text-2xl' />}</button>
                 <div ref={leftDivRef} className={`sideLeft absolute top-0 w-[70%] h-full py-3 flex items-center flex-col overflow-y-auto border-r-4 border-gray-300 z-40 bg-white transition-all duration-500 md:static sm:w-[60%] md:w-[30%] xl:w-[20%] 2xl:w-[15%] ${isOpen? 'left-0' : '-left-[100%]'} scrollbar-custom`}>
                     <button onClick={createNewChat} className="px-4 py-2 bg-blue-500 text-white rounded-md w-[90%] h-10">New Chat</button>
