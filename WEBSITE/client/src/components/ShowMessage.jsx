@@ -146,7 +146,7 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
             <div className="flex justify-start my-2">
                 <div className="outputBox max-w-[80%] p-4 bg-yellow-200 rounded-xl sm:max-w-[60%]">
                     {data.output === '' ?
-                        <div className='w-[37rem] h-24 animate-pulse'>
+                        <div className='w-[64vw] h-24 animate-pulse sm:w-[52vw] md:w-[35vw] lg:w-[23vw] xl:w-[33vw] 2xl:w-[37rem]'>
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>

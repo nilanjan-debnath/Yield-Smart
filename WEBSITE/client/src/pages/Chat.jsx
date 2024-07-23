@@ -34,9 +34,6 @@ export default function Chat() {
     const [edit, setEdit] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const leftDivRef = useRef(null);
-    // console.log("allChat: ", allChat);
-    // console.log("conversationid: ", conversationId);
-    // console.log("currentConversation: ", currentConversationId);
 
     const divRef = useRef(null);
     const dispatch = useDispatch();

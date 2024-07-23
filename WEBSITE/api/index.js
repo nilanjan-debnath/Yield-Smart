@@ -3,9 +3,6 @@ import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import geminiRoute from "./routes/gmini.route.js";
-import {GoogleGenerativeAI} from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI("api_key");
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -37,7 +34,6 @@ app.listen(3000, ()=> {
 // write route here
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
-app.use("/api/gemini", geminiRoute);
 
 // error handle middleware
 app.use((err, req, res, next) => {
