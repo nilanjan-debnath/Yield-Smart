@@ -10,7 +10,7 @@ RUN apt-get update
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt /app/
-RUN pip install django requests pillow python-dotenv langchain langchain_core langchain_cohere langchain-google-genai firebase-admin whitenoise gunicorn
+RUN pip install django djangorestframework requests pillow python-dotenv langchain langchain_core langchain_cohere langchain-google-genai firebase-admin whitenoise gunicorn
 
 COPY . /app
 

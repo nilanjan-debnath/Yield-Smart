@@ -2,8 +2,10 @@ db.sqlite3
 env
 .env
 pip_list.txt
-grootAI/__pycache__
 AI_Agent/__pycache__
+grootAI/__pycache__
 grootAI/migrations
+API/__pycache__
+API/migrations
 firebase_config.json
 saved_image.jpg
