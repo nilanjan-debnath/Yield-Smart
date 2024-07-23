@@ -7,7 +7,7 @@ export const test = async (req, res, next) => {
 export const output = async (req, res, next) => {
     try {
 
-        const response = await axios.post("https://ai-agent-ci59.onrender.com/groot-ai/", {
+        const response = await axios.post("https://yield-smart-agent.onrender.com/groot-ai/", {
             id: req.body.id,
             index: req.body.index
         }, {
