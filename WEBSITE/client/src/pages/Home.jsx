@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { HashLink } from 'react-router-hash-link';
 import Footer from '../components/Footer';
+import backgroundImg from "../../public/images/background image.webp";
+import circularImg from "../../public/images/side img.png";
+import problemImg from "../../public/images/problem.jpg"
+import solutionImg from "../../public/images/solution.jpg";
+import solutionLeftImg from "../../public/images/solution image.jpg";
+import benefitsImg from "../../public/images/grow.jpg";
 
 
 export default function Home() {
 
   const [loading, setLoading] = useState(false);
+  const imageUvFilm = "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/000croda_image_downloads.jpg?alt=media&token=46c1d366-2d8b-4957-b98e-1c7491a99f50";
+  const imageHidrogel = "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/Roles-of-hydrogels-in-agriculture.png?alt=media&token=d65dd447-5760-44f7-ba0d-0beee2d5ad82";
+  
 
   useEffect(() => {
     checkBackend();
@@ -39,10 +48,12 @@ export default function Home() {
       {!loading && (
         <div>
           <div className="relative">
-            <img src="./images/background image.webp" alt="" className="w-full h-48 sm:h-60 md:h-auto" />
+            <div className="w-full h-48 sm:h-60 md:h-auto">
+            <img src={backgroundImg} alt="" className="w-full h-full object-cover" />
+            </div>
             <div
               className="leftImg hidden absolute top-[40%] -right-20 transform -translate-y-1/2 -translate-x-1/2 lg:block w-48 h-48 xl:-right-32 xl:top-1/2 xl:w-[20rem] xl:h-[20rem]">
-              <img src="./images/side img.png" alt="" className="w-full h-full object-contain" />
+              <img src={circularImg} alt="" className="w-full h-full object-contain" />
             </div>
             <div className="absolute top-16 left-2 lg:top-[60%] lg:left-8">
               <h1 className="text-3xl font-semibold text-white sm:text-4xl">Grow more, Waste less:</h1>
@@ -69,15 +80,15 @@ export default function Home() {
                 agriculture system lead to inefficiency, great manpower, and high operation cost.</p>
             </div>
             <div style={{ boxShadow: "2px 4px 9px 2px" }} className="right w-full h-[17rem] overflow-hidden rounded-lg sm:w-[50%] lg:w-[35%]">
-              <img src="./images/problem.jpg" alt="" className="w-full h-full object-cover" />
+              <img src={problemImg} alt="" className="w-full h-full object-cover" />
             </div>
           </div>
-          <div style={{ background: "url('https://d17ocfn2f5o4rl.cloudfront.net/wp-content/uploads/2022/01/MAR-7834-HEADER-BP-GIS-in-Agriculture_UPD.jpg') no-repeat", backgroundSize: "cover" }}
+          <div style={{ background: `url(${solutionImg}) no-repeat`, backgroundSize: "cover" }}
             className="py-2">
             <h1 id="solution" className="text-center text-3xl my-10 font-semibold">Solutions</h1>
             <div className="solution flex flex-col px-2 gap-8 my-4 sm:flex-row sm:px-8 sm:justify-around sm:gap-0 md:px-4 md:gap-2 lg:px-8">
               <div style={{ boxShadow: "2px 4px 9px 2px" }} className="left w-full h-[20rem] rounded-lg overflow-hidden sm:hidden md:block md:w-1/2 lg:w-[40%]">
-                <img src="./images/solution image.jpg" alt="" className="w-full h-full object-cover" />
+                <img src={solutionLeftImg} alt="" className="w-full h-full object-cover" />
               </div>
               <div className="right h-[29rem] rounded-lg w-full px-1 py-4 border border-white flex bg-transparent backdrop-filter backdrop-blur-sm sm:px-4 sm:w-[95%] md:w-[50%] sm:h-[22rem] text-white sm:text-black">
                 <div className="py-3 px-1 flex flex-col items-center gap-4 sm:px-3">
@@ -101,7 +112,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div style={{ background: "url('https://www.growindigo.co.in/wp-content/uploads/2024/01/About-Grow-Indigo-Resized.jpg') no-repeat", backgroundSize: "cover" }}
+          <div style={{ background: `url(${benefitsImg}) no-repeat`, backgroundSize: "cover" }}
             id="benefits" className="w-full h-screen px-4 py-4 text-white opacity-90 sm:py-8">
             <h1 className="text-2xl my-2 text-center font-semibold sm:my-8 sm:text-3xl">Benefits Will You Get</h1>
             <div className="flex flex-col justify-center gap-4 sm:flex-row sm:gap-2 md:gap-8">
@@ -150,12 +161,12 @@ export default function Home() {
                 </ul>
               </div>
               <div style={{ boxShadow: "2px 4px 9px 2px" }} className="right w-full h-80 rounded-xl overflow-hidden sm:w-[50%] md:w-[35%]">
-                <img src="https://europlas.com.vn/Data/Sites/1/media/000croda_image_downloads.jpg" alt="" className="w-full h-full object-cover" />
+                <img src={imageUvFilm} alt="" className="w-full h-full object-cover" />
               </div>
             </div>
             <div className="flex justify-center flex-col px-4 gap-8 my-8 items-center sm:gap-4 md:gap-10 sm:flex-row sm:px-4">
               <div style={{ boxShadow: "2px 4px 9px 2px" }} className="left w-full overflow-hidden rounded-xl sm:w-[50%] md:w-[35%]">
-                <img src="https://www.researchgate.net/profile/Manar-El-Sayed-Abdel-Raouf/publication/356783134/figure/fig4/AS:1099767249682433@1639216353047/Roles-of-hydrogels-in-agriculture.jpg" alt="" className="w-full h-full object-cover" />
+                <img src={imageHidrogel} alt="" className="w-full h-full object-cover" />
               </div>
               <div className="right w-full p-4 border border-black rounded-xl sm:w-[50%]">
                 <h1 className="text-xl font-semibold my-4">Hydrogel</h1>
