@@ -1,11 +1,10 @@
 from . import firebase_data
-from . import tools_list
+from .tools_list import TOOLS, TOOS_DETAILS, set_conversation
 
 import os
 import json
 from dotenv import load_dotenv
 from django.conf import settings
-from langchain_core.tools import tool
 from langchain_cohere import ChatCohere
 from langchain.agents import AgentExecutor
 from langchain_core.prompts import ChatPromptTemplate
@@ -17,17 +16,7 @@ os.environ['LANGCHAIN_API_KEY'] = os.getenv('LANGCHAIN_API_KEY')
 os.environ['LANGCHAIN_TRACING_V2'] = os.getenv('LANGCHAIN_TRACING_V2')
 os.environ['LANGCHAIN_ENDPOINT'] = "https://api.smith.langchain.com"
 
-conversation = []
-@tool
-def history() -> list:
-    "All the conversation details between user and AI"
-    global conversation
-    return conversation['texts']
-
-history.name = "history"
-history.description = "All the conversation details between user and AI"
-
-tools = [history, tools_list.weather_tool, tools_list.visual_tool]
+tools = TOOLS
 
 preamble = """you're a helpful ai assistant.
 You will be given input in this format {'datetime':'', 'input':'', 'image':'', 'history':[]}
@@ -36,11 +25,7 @@ And 'history' is a list of last 5 conversation between ai and user. Each item in
 """+f"""
 You have multiple tools like these {tools}
 Here is some guideline for the tools:
-{tools_list.visual_tool_details}
-{tools_list.weather_tool_details}
-history:
-If you think you need more history of conversation, then use this tool to get all previous conversation history.
-
+{TOOS_DETAILS}
 Always awar of the conversation history. Use it if you find any relevent information to help in responding the current input.
 """
 prompt = ChatPromptTemplate.from_template("{input}")
@@ -65,6 +50,8 @@ def groot_ai(user_input):
     index = int(user_input["index"])
 
     conversation = firebase_data.get_data(id)
+    set_conversation(conversation)
+
     if index < 7:
         history = conversation['texts'][:index]
     else:
