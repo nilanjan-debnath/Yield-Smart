@@ -14,7 +14,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const imageUvFilm = "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/000croda_image_downloads.jpg?alt=media&token=46c1d366-2d8b-4957-b98e-1c7491a99f50";
   const imageHidrogel = "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/Roles-of-hydrogels-in-agriculture.png?alt=media&token=d65dd447-5760-44f7-ba0d-0beee2d5ad82";
-  
+
 
   useEffect(() => {
     checkBackend();
@@ -49,7 +49,7 @@ export default function Home() {
         <div>
           <div className="relative">
             <div className="w-full h-48 sm:h-60 md:h-auto">
-            <img src={backgroundImg} alt="" className="w-full h-full object-cover" />
+              <img src={backgroundImg} alt="" className="w-full h-full object-cover" />
             </div>
             <div
               className="leftImg hidden absolute top-[40%] -right-20 transform -translate-y-1/2 -translate-x-1/2 lg:block w-48 h-48 xl:-right-32 xl:top-1/2 xl:w-[20rem] xl:h-[20rem]">

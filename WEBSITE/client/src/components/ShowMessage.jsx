@@ -98,7 +98,7 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
     };
 
     useEffect(() => {
-        if(file){
+        if (file) {
             uploadImageFirebase(file);
         }
     }, [file]);
@@ -130,13 +130,13 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
                     <textarea onChange={(e) => setInput(e.target.value)} id="" className='w-full h-full resize-none border border-blue-500 px-4 py-2 rounded-md bg-blue-200 outline-none' defaultValue={data.input}></textarea>
                     <div className="flex gap-2 float-end">
                         <button onClick={handleClose || isOpen} className="px-4 py-2 w-20 rounded-full border-blue-500 border-2 text-blue-500">Close</button>
-                        <button disabled={loading || isOpen} onClick={handleSend} className="px-4 py-2 w-20 rounded-full bg-blue-500 text-white">{loading? 'Saving..' : 'Send'}</button>
+                        <button disabled={loading || isOpen} onClick={handleSend} className="px-4 py-2 w-20 rounded-full bg-blue-500 text-white">{loading ? 'Saving..' : 'Send'}</button>
                     </div>
                 </div>
             </div>
             {data.image != '' && (
-                <div className="flex justify-end items-center gap-2">
-                    <div className="w-20 h-20 overflow-hidden border-2 rounded-md relative">
+                <div className="flex justify-end items-center gap-2 py-1">
+                    <div className="w-36 h-36 overflow-hidden border-2 rounded-md relative">
                         <input ref={imageRef} onChange={(e) => setFile(e.target.files[0])} type="file" className="" hidden accept='image/*' />
                         <img src={imageUrl === '' ? data.image : imageUrl} alt="" className={`w-full h-full object-contain ${editShow ? 'opacity-80' : ''}`} />
                         <button disabled={isOpen} onClick={() => imageRef.current.click()} className={`absolute right-0 bottom-0 p-2 bg-gray-200 rounded-full ${editShow ? '' : 'hidden'}`}><FcEditImage className='text-xl' /></button>
@@ -150,9 +150,10 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
-                        </div> : <Markdown>
-                            {data.output}
-                        </Markdown>}
+                        </div>:<Markdown>
+                                {data.output}
+                            </Markdown>
+                        }
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@
   "dependencies": {
     "@google-cloud/translate": "^8.2.0",
     "@reduxjs/toolkit": "^2.2.3",
+    "browser-image-compression": "^2.0.2",
     "firebase": "^10.12.3",
     "gemini-api": "^2.0.4",
     "i18next": "^23.11.1",
