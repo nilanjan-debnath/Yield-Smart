@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { CiEdit } from "react-icons/ci";
-import Markdown from 'react-markdown';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getStorage, uploadBytesResumable, ref, getDownloadURL, deleteObject } from "firebase/storage";
 import { FcEditImage } from "react-icons/fc";
 import { app } from '../firebase';
+
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function ShowMessage({ data, index, setEdit, conversationId, showDateTime, db, setAllChat, handleInputAnswer, isOpen }) {
     const [isShow, setIsShow] = useState(false);
@@ -12,7 +14,7 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
     const [input, setInput] = useState(data.input);
     const imageRef = useRef(null);
     const [file, setFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageUrl, setImageUrl] = useState(data.image);
     const [loading, setLoading] = useState(false);
 
     const handleMouseEnter = () => {
@@ -150,7 +152,7 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
-                        </div>:<Markdown>
+                        </div>:<Markdown remarkPlugins={[remarkGfm]}>
                                 {data.output}
                             </Markdown>
                         }
