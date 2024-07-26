@@ -13,7 +13,6 @@ from langchain_core.messages import HumanMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 
-from langchain.tools.retriever import create_retriever_tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 
@@ -85,17 +84,3 @@ class visual_inputs(BaseModel):
 visual_tool.args_schema = visual_inputs
 
 TOOLS = [history, web_search_tool, visual_tool]
-
-TOOS_DETAILS = """
-history:
-If you think you need more history of conversation, then use this tool to get all previous conversation history.
-
-web_search_tool:
-When you felt like you need a web information to fullfill your response to user input use this tool.
-Make your own search queary to retrive the most revent inforamation from web.
-
-visual_tool:
-This tool use a image url and a prompt as input.
-If user send any image url in image, generate a prompt to get details result. Arrenge the output and send it in most user friendly way to user.
-For any follow up questions on any previous image, use the previous image url for this tool to respond to that follow up question.
-"""
