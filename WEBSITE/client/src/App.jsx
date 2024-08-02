@@ -7,11 +7,11 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import Chat from './pages/Chat';
+import Dashboard from './pages/Dashboard';
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/sign-in' element={<SignIn />} />
@@ -20,6 +20,7 @@ export default function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/chat' element={<Chat />} />
         </Route>
+        <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   )

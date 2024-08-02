@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import LogoImg from "../../public/images/logo.jpg";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { LuLayoutDashboard } from "react-icons/lu";
 
 export default function Header() {
   const {currentUser} = useSelector((state)=> state.user);
@@ -19,7 +20,7 @@ export default function Header() {
         </Link>
         {currentUser ? (
           <div className="flex items-center gap-4">
-        <Link to='/chat' className='text-xl font-semibold'>Chat</Link>
+        <Link to='/dashboard' title='Dashboard' className='text-xl font-semibold'><LuLayoutDashboard className='text-2xl sm:text-3xl' /></Link>
 
           <Link to='/profile'>
           <div className="rounded-full overflow-hidden border-2 border-white mx-2 w-10 sm:h-10">

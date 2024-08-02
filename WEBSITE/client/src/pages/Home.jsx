@@ -7,6 +7,7 @@ import problemImg from "../../public/images/problem.jpg"
 import solutionImg from "../../public/images/solution.jpg";
 import solutionLeftImg from "../../public/images/solution image.jpg";
 import benefitsImg from "../../public/images/grow.jpg";
+import Header from '../components/Header';
 
 
 export default function Home() {
@@ -39,6 +40,8 @@ export default function Home() {
   };
 
   return (
+    <>
+    <Header />
     <main>
       {loading && (
         <div className="w-full h-screen bg-[#36ADFF] flex items-center justify-center absolute top-0 left-0">
@@ -183,5 +186,6 @@ export default function Home() {
         </div>
       )}
     </main>
+    </>
   )
 }
