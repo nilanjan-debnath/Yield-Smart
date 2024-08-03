@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { conversationIdFailure, conversationIdSuccess } from '../redux/conversationId/conversationSlice';
 import ShowMessage from '../components/ShowMessage';
 import imageCompression from 'browser-image-compression';
+import ChatHeader from '../components/ChatHeader';
 
 export default function Chat() {
 
@@ -324,9 +325,9 @@ export default function Chat() {
     };
 
     return (
-        <div className='w-full h-[91dvh]'>
-            <div className="flex w-full h-[91dvh] relative overflow-hidden">
-                <button onClick={() => setIsOpen(!isOpen)} className="md:hidden absolute top-2 right-1 p-1 bg-gray-200 rounded-full z-30">{isOpen ? <RxCross2 className='text-2xl' /> : <IoIosMenu className='text-2xl' />}</button>
+        <div className='w-full h-[100dvh]'>
+            <div className="flex w-full h-[100dvh] relative overflow-hidden">
+                <button onClick={() => setIsOpen(!isOpen)} className="md:hidden absolute top-20 right-1 p-1 bg-gray-200 rounded-full z-30">{isOpen ? <RxCross2 className='text-2xl' /> : <IoIosMenu className='text-2xl' />}</button>
                 <div ref={leftDivRef} className={`sideLeft absolute top-0 w-[70%] h-full py-3 flex items-center flex-col overflow-y-auto border-r-4 border-gray-300 z-40 bg-white transition-all duration-500 md:static sm:w-[60%] md:w-[30%] xl:w-[20%] 2xl:w-[15%] ${isOpen ? 'left-0' : '-left-[100%]'} scrollbar-custom`}>
                     <button onClick={createNewChat} className="px-4 py-2 bg-blue-500 text-white rounded-md w-[90%] h-10">New Chat</button>
                     <div className="w-full flex flex-col items-center gap-3 my-4 scrollbar-custom overflow-y-auto">
@@ -345,6 +346,7 @@ export default function Chat() {
                     </div>
                 </div>
                 <div className="sideRight w-full h-full relative md:w-[70%] xl:w-[80%] 2xl:w-[85%]">
+                    <ChatHeader />
                     <div ref={divRef} className={`body w-full h-[85%] px-2 py-4 overflow-y-auto scrollbar-custom lg:px-32 transition-all duration-500 ${isOpen ? 'opacity-60' : ''}`}>
                         {fetchLoading && (
                             <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#36ADFF]">
