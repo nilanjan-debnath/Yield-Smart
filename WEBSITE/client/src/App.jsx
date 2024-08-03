@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import Chat from './pages/Chat';
 import Dashboard from './pages/Dashboard';
+import Diagonasis from './pages/Diagonasis';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/chat' element={<Chat />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/diagonasis' element={<Diagonasis />} />
         </Route>
       </Routes>
     </BrowserRouter>

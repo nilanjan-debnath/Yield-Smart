@@ -17,7 +17,7 @@ import ShowMessage from '../components/ShowMessage';
 import imageCompression from 'browser-image-compression';
 import ChatHeader from '../components/ChatHeader';
 
-export default function Chat() {
+export default function Diagonasis() {
 
     const [inputMessage, setInputMessage] = useState('');
     const fileRef = useRef(null);
@@ -349,7 +349,7 @@ export default function Chat() {
                     <ChatHeader />
                     <div ref={divRef} className={`body w-full h-[76%] px-2 py-4 overflow-y-auto scrollbar-custom lg:px-32 transition-all duration-500 bg-[#F1F6F5] ${isOpen ? 'opacity-60' : ''}`}>
                         {fetchLoading && (
-                            <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#01D2A8] z-50">
+                            <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#36ADFF] z-50">
                                 <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
                             </div>
                         )}
@@ -392,7 +392,7 @@ export default function Chat() {
                             <input ref={fileRef} onChange={(e) => setImageFile(e.target.files[0])} type="file" hidden accept='image/*' />
                             <input disabled={messageLoading} onChange={(e) => setInputMessage(e.target.value)} placeholder='Ask some thing?' className='px-4 py-2 rounded-md outline-none border border-black w-[88%]' value={inputMessage}></input>
                             <button disabled={messageLoading || isOpen} onClick={() => fileRef.current.click()} className={`p-3 transition-all duration-300 bg-gray-100  rounded-full ${isOpen ? '' : 'hover:bg-gray-300'}`}><IoImageOutline className='text-2xl' /></button>
-                            <button disabled={messageLoading || inputMessage == '' || isOpen} onClick={handleSend} className="px-4 w-auto py-1 rounded-md bg-[#12c992] text-white flex justify-center items-center disabled:bg-[#2EECB3] sm:w-16 sm:py-2">
+                            <button disabled={messageLoading || (inputMessage == '' && imageUrl =='') || isOpen} onClick={handleSend} className="px-4 w-auto py-1 rounded-md bg-[#12c992] text-white flex justify-center items-center disabled:bg-[#2EECB3] sm:w-16 sm:py-2">
                                 {messageLoading ? <div className="animate-spin h-7 w-7 border-4 border-t-4 border-t-white border-gray-300 rounded-full" ></div> : <VscSend className='text-xl sm:text-2xl' />}
                             </button>
                         </div>

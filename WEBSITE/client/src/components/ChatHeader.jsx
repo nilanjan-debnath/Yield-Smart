@@ -8,7 +8,7 @@ export default function ChatHeader() {
     const { currentUser } = useSelector((state) => state.user);
 
     return (
-        <div className="w-full h-16 bg-[#9EFFE2] flex items-center justify-between px-4 border-b-2 border-[#4AD0DB] shadow-md absolute top-0 right-0 z-40 sm:px-8">
+        <div className="w-full h-[9%] bg-[#9EFFE2] flex items-center justify-between px-4 border-b-2 border-[#4AD0DB] shadow-md sm:px-8">
             <Link to='/dashboard'>
                 <FaArrowLeftLong className='text-2xl' />
             </Link>

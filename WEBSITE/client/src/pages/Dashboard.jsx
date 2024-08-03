@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from "/images/logo.jpg";
 import { BsFillBellFill } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
@@ -10,8 +10,21 @@ import { IoIosSunny } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, []);
+
     return (
         <>
+            {loading && (
+                <div className="w-full h-screen absolute left-0 top-0 flex justify-center items-center bg-[#01D2A8] z-50">
+                    <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
+                </div>
+            )}
             <div id='header' className="header w-full h-16 bg-[#9EFFE2] flex justify-between items-center px-2 sm:px-4">
                 <Link to='/'>
                     <div className="flex gap-2 items-center">
@@ -33,9 +46,9 @@ export default function Dashboard() {
                         <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2Fmsg.png?alt=media&token=ec7bdd2b-07ab-4ace-94fe-a19206199ca0" alt="" className="h-12 sm:h-16 lg:h-20" />
                     </Link>
                 </div>
-                <button onClick={() => console.log("bottom click")} className="">
+                <Link to='/diagonasis' className="">
                     <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2Fdiagnosis.png?alt=media&token=5af84137-d49b-4b49-9088-7680ba6edf10" alt="" className="absolute bottom-0 right-0 h-28 sm:h-40 md:h-44 lg:h-[80%]" />
-                </button>
+                </Link>
             </div>
             <div className="box2 py-6 px-8 sm:px-6 md:px-8">
                 <h1 className="text-3xl py-2 font-semibold text-[#00623D] border-b-4 border-[#00623D]">Plant monitoring</h1>
