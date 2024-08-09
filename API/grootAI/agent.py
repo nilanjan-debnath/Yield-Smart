@@ -142,9 +142,6 @@ Instructions:
 - Provide tips for preventing the recurrence of the disease.
 
 Example Output:
-
-AI:
-
 1. Image Analysis:
 - The image shows yellowing leaves with brown spots. The lower leaves are more affected.
     
