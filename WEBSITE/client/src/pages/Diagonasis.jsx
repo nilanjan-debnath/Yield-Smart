@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
 import { FaSearchengin } from "react-icons/fa6";
-import { getStorage, uploadBytesResumable, getDownloadURL, ref, } from "firebase/storage";
+import { getStorage, uploadBytesResumable, getDownloadURL, ref, deleteObject} from "firebase/storage";
 import { app } from '../firebase';
 import imageCompression from 'browser-image-compression';
 
@@ -14,6 +14,7 @@ export default function Diagonasis() {
     const [file, setFile] = useState(null);
     const [imgUploadError, setImgUploadError] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
+    const [output, setOutput] = useState('');
 
     useEffect(() => {
         if (file && file.size <= 2000000) {
@@ -64,6 +65,47 @@ export default function Diagonasis() {
         }
     };
 
+    const deleteFirebaseImage = async (imgUrl) => {
+        const storage = getStorage(app);
+        const decodedUrl = decodeURIComponent(imgUrl);
+        const fileName = decodedUrl.substring(decodedUrl.lastIndexOf('/') + 1).split('?')[0];
+
+        console.log("file name is ", fileName);
+        const storageRef = ref(storage, fileName);
+        try {
+            await deleteObject(storageRef);
+            console.log("File deleted successfully");
+        } catch (error) {
+            console.error("Error deleting file:", error);
+        }
+    };
+
+    const sendRequest = async () => {
+        try{
+            const res = await fetch("http://localhost:5173/api/user/imageOuput", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    image: imageUrl
+                }),
+            });
+
+            const data = await res.json();
+            if(data.success === false){
+                console.log(data.message);
+                return;
+            }
+            setOutput(data.output);
+            console.log("output: ", data.output);
+            setImageUrl('');
+            setFile(null);
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+
     return (
         <div>
             <div className="w-full py-2 bg-[#9EFFE2] flex items-center justify-between px-4 border-b-2 border-[#4AD0DB] shadow-md sm:px-8">
@@ -81,7 +123,7 @@ export default function Diagonasis() {
                     <img src={imageUrl || "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FGroup%2015.png?alt=media&token=d460bb38-7019-4808-b143-3885bbb62dd7"} alt="" className="w-full h-full object-contain cursor-pointer" />
                 </div>
                 <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' />
-                <button className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b]"><FaSearchengin className='text-2xl' />Quick Search</button>
+                <button onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b]"><FaSearchengin className='text-2xl' />Quick Search</button>
             </div>
         </div>
     )
