@@ -37,12 +37,12 @@ export default function Dashboard() {
                     <Link to='/profile' className="p-2 rounded-full bg-white"><FaUserAlt className='text-xl sm:text-2xl text-[#00623D]' /></Link>
                 </div>
             </div>
-            <div className="box1 h-44 mx-4 my-4 relative md:mx-8 sm:h-60 md:h-[40dvh] border border-black">
+            <div className="box1 h-44 mx-4 my-4 relative md:mx-8 sm:h-60 md:h-[40dvh]">
                 <div className="absolute top-0 left-0 h-28 sm:h-40 md:h-44 lg:h-[80%] flex items-start gap-4">
-                    <button onClick={() => console.log("top click")} className="w-auto h-auto border border-black">
+                    <button onClick={() => console.log("top click")} className="w-auto h-auto ">
                         <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FGroup%208.png?alt=media&token=c67061d0-f928-4601-976d-6c608bc8021b" alt="" className="h-28 sm:h-44" />
                     </button>
-                    <Link to='/chat' className="border border-black">
+                    <Link to='/chat' className="">
                         <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2Fmsg.png?alt=media&token=ec7bdd2b-07ab-4ace-94fe-a19206199ca0" alt="" className="h-12 sm:h-16 lg:h-20" />
                     </Link>
                 </div>

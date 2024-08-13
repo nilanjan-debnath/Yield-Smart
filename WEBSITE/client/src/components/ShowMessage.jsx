@@ -152,10 +152,10 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
-                        </div>:<Markdown remarkPlugins={[remarkGfm]}>
-                                {data.output}
-                            </Markdown>
-                        }
+                        </div> : <pre className='whitespace-normal break-words'>
+                            {data.output}
+                        </pre>
+                    }
                 </div>
             </div>
         </div>

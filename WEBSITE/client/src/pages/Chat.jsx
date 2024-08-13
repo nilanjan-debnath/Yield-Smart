@@ -349,7 +349,7 @@ export default function Chat() {
                     <ChatHeader />
                     <div ref={divRef} className={`body w-full h-[76%] px-2 py-4 overflow-y-auto scrollbar-custom lg:px-32 transition-all duration-500 bg-[#F1F6F5] ${isOpen ? 'opacity-60' : ''}`}>
                         {fetchLoading && (
-                            <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#01D2A8] z-50">
+                            <div className="w-full h-screen absolute left-0 top-0 flex justify-center items-center bg-[#01D2A8] z-50">
                                 <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
                             </div>
                         )}
