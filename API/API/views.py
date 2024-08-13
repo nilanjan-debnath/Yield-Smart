@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import FirebaseSerializers, DirectChatSerializers
+from .serializers import FirebaseSerializers, DirectChatSerializers, ImageChatSerializers
 
 from grootAI import agent
 
@@ -24,5 +24,12 @@ def directChat(request):
     serializer = DirectChatSerializers(data=request.data)
     if serializer.is_valid(raise_exception=True):
         response = agent.direct_chat(serializer.data)
+    return Response({'output': response})
+
+@api_view(['POST'])
+def directImage(request):
+    serializer = ImageChatSerializers(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        response = agent.direct_image(serializer.data)
     return Response({'output': response})
 
