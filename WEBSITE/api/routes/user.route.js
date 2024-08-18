@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get("/test", test);
 router.post("/output",verifyToken, output);
-router.post("/imageOuput", verifyToken, imgOutput);
+router.post("/imageoutput", verifyToken, imgOutput);
 
 export default router;

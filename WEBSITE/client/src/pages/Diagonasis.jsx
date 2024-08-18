@@ -89,7 +89,7 @@ export default function Diagonasis() {
             setOutPutLoading(true);
             setOutput('');
             setOutputError(false);
-            const res = await fetch("http://localhost:5173/api/user/imageOuput", {
+            const res = await fetch("http://localhost:5173/api/user/imageoutput", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ export default function Diagonasis() {
             )}
 
             {((output.length > 0 || outPutLoading) && !outputError) && (
-                <div className="px-3 min-h-[38svh] py-4 flex justify-center items-start border border-black sm:px-8 lg:items-center">
+                <div className="px-3 min-h-[38svh] py-4 flex justify-center items-start sm:px-8 lg:items-center">
                     <div className="flex justify-start my-2 w-[40rem]">
                         <div className="outputBox w-full p-4 bg-[#9effe2] rounded-xl">
                             {output === '' ?
