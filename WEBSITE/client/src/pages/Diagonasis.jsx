@@ -16,6 +16,7 @@ export default function Diagonasis() {
     const [imageUrl, setImageUrl] = useState('');
     const [output, setOutput] = useState('');
     const [outPutLoading, setOutPutLoading] = useState(false);
+    const [outputError, setOutputError] = useState(false);
 
     useEffect(() => {
         if (file && file.size <= 2000000) {
@@ -80,13 +81,15 @@ export default function Diagonasis() {
             console.log("File deleted successfully");
         } catch (error) {
             console.error("Error deleting file:", error);
+            setOutputError(true);
         }
     };
 
     const sendRequest = async () => {
         try {
             setOutPutLoading(true);
-            setOutput('')
+            setOutput('');
+            setOutputError(false);
             const res = await fetch("http://localhost:5173/api/user/imageOuput", {
                 method: 'POST',
                 headers: {
@@ -128,7 +131,7 @@ export default function Diagonasis() {
             </div>
             <div className="w-full flex flex-col items-center py-8 px-4 min-h-[52svh]">
                 {(imgProgress > 0 && imgProgress < 100) && (
-                    <div className="w-[25rem] h-[15rem] rounded-md relative overflow-hidden">
+                    <div className="w-[95%] h-[15rem] rounded-md relative overflow-hidden sm:w-[25rem]">
                         <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#01D2A8] z-50">
                             <div className="border-8 border-t-8 border-t-white border-gray-300 w-16 h-16 rounded-full animate-spin"></div>
                         </div>
@@ -143,22 +146,34 @@ export default function Diagonasis() {
                 <button onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b]"><FaSearchengin className='text-2xl' />Quick Search</button>
             </div>
 
-            {(output.length > 0 || outPutLoading) && (
-            <div className="px-3 min-h-[38svh] py-4 flex justify-center items-start border border-black sm:px-8 lg:items-center">
-                <div className="flex justify-start my-2 w-[40rem]">
-                    <div className="outputBox w-full p-4 bg-[#9effe2] rounded-xl">
-                        {output === '' ?
-                            <div className='w-full h-24 animate-pulse'>
-                                <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
-                                <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
-                                <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
-                            </div> : <pre className='whitespace-normal break-words'>
-                                {output}
-                            </pre>
-                        }
+            {outputError && (
+                <h2 className="text-red-600 font-semibold text-center px-4">Some error occur during output generation. Try againg after some time</h2>
+            )}
+
+            {(output.length === 0 && imageUrl === '') && (
+                <div className="flex justify-center items-center">
+                    <div style={{ alignItems: "inherit" }} className="w-full h-full flex flex-col justify-center textImage my-4 lg:w-1/2">
+                        <h1 className="text-4xl lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[4rem] font-semibold px-4 sm:px-8 py-2 text-center">Upload an Image for Quick Diagonesis</h1>
                     </div>
                 </div>
-            </div>
+            )}
+
+            {((output.length > 0 || outPutLoading) && !outputError) && (
+                <div className="px-3 min-h-[38svh] py-4 flex justify-center items-start border border-black sm:px-8 lg:items-center">
+                    <div className="flex justify-start my-2 w-[40rem]">
+                        <div className="outputBox w-full p-4 bg-[#9effe2] rounded-xl">
+                            {output === '' ?
+                                <div className='w-full h-24 animate-pulse'>
+                                    <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
+                                    <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
+                                    <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
+                                </div> : <pre className='whitespace-normal break-words'>
+                                    {output}
+                                </pre>
+                            }
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     )
