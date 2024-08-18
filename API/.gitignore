@@ -1,5 +1,5 @@
 db.sqlite3
-env
+.venv
 .env
 pip_list.txt
 __pycache__/
