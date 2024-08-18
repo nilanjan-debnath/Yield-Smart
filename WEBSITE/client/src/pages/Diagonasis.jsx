@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
 import { FaSearchengin } from "react-icons/fa6";
-import { getStorage, uploadBytesResumable, getDownloadURL, ref, deleteObject} from "firebase/storage";
+import { getStorage, uploadBytesResumable, getDownloadURL, ref, deleteObject } from "firebase/storage";
 import { app } from '../firebase';
 import imageCompression from 'browser-image-compression';
 
@@ -12,9 +12,10 @@ export default function Diagonasis() {
     const { currentUser } = useSelector((state) => state.user);
     const fileRef = useRef(null);
     const [file, setFile] = useState(null);
-    const [imgUploadError, setImgUploadError] = useState(false);
+    const [imgProgress, setImgProgress] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
     const [output, setOutput] = useState('');
+    const [outPutLoading, setOutPutLoading] = useState(false);
 
     useEffect(() => {
         if (file && file.size <= 2000000) {
@@ -28,6 +29,7 @@ export default function Diagonasis() {
     }, [file]);
 
     const handleUploadImage = (file) => {
+        console.log("image Loading true");
         const storage = getStorage(app);
         const fileName = new Date().getTime() + file.name;
         const storageRef = ref(storage, fileName);
@@ -36,9 +38,10 @@ export default function Diagonasis() {
         uploadTask.on("state_changed", (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log("progress: ", Math.round(progress));
+            setImgProgress(Math.round(progress));
         },
             (error) => {
-                setImgUploadError(true);
+                console.log("imageUplaod error: ", error);
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
@@ -81,7 +84,9 @@ export default function Diagonasis() {
     };
 
     const sendRequest = async () => {
-        try{
+        try {
+            setOutPutLoading(true);
+            setOutput('')
             const res = await fetch("http://localhost:5173/api/user/imageOuput", {
                 method: 'POST',
                 headers: {
@@ -93,16 +98,19 @@ export default function Diagonasis() {
             });
 
             const data = await res.json();
-            if(data.success === false){
+            if (data.success === false) {
                 console.log(data.message);
                 return;
             }
             setOutput(data.output);
             console.log("output: ", data.output);
-            setImageUrl('');
             setFile(null);
-        }catch(error){
+            deleteFirebaseImage(imageUrl);
+            setFile(null);
+        } catch (error) {
             console.log(error.message);
+        } finally {
+            setOutPutLoading(false);
         }
     }
 
@@ -118,13 +126,40 @@ export default function Diagonasis() {
                     </div>
                 </Link>
             </div>
-            <div className="w-full flex flex-col items-center py-8 px-4 min-h-[92svh]">
-                <div onClick={() => fileRef.current.click()} className="w-[25rem] h-[15rem] rounded-md">
-                    <img src={imageUrl || "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FGroup%2015.png?alt=media&token=d460bb38-7019-4808-b143-3885bbb62dd7"} alt="" className="w-full h-full object-contain cursor-pointer" />
-                </div>
+            <div className="w-full flex flex-col items-center py-8 px-4 min-h-[52svh]">
+                {(imgProgress > 0 && imgProgress < 100) && (
+                    <div className="w-[25rem] h-[15rem] rounded-md relative overflow-hidden">
+                        <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#01D2A8] z-50">
+                            <div className="border-8 border-t-8 border-t-white border-gray-300 w-16 h-16 rounded-full animate-spin"></div>
+                        </div>
+                    </div>
+                )}
+                {(imgProgress === 0 || imgProgress === 100) && (
+                    <div onClick={() => fileRef.current.click()} className=" h-[15rem] rounded-md overflow-hidden sm:w-[25rem]">
+                        <img src={imageUrl || "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FGroup%2015.png?alt=media&token=d460bb38-7019-4808-b143-3885bbb62dd7"} alt="" className="w-full h-full object-contain cursor-pointer" />
+                    </div>
+                )}
                 <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' />
                 <button onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b]"><FaSearchengin className='text-2xl' />Quick Search</button>
             </div>
+
+            {(output.length > 0 || outPutLoading) && (
+            <div className="px-3 min-h-[38svh] py-4 flex justify-center items-start border border-black sm:px-8 lg:items-center">
+                <div className="flex justify-start my-2 w-[40rem]">
+                    <div className="outputBox w-full p-4 bg-[#9effe2] rounded-xl">
+                        {output === '' ?
+                            <div className='w-full h-24 animate-pulse'>
+                                <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
+                                <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
+                                <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
+                            </div> : <pre className='whitespace-normal break-words'>
+                                {output}
+                            </pre>
+                        }
+                    </div>
+                </div>
+            </div>
+            )}
         </div>
     )
 }
