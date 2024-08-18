@@ -142,7 +142,7 @@ export default function Diagonasis() {
                         <img src={imageUrl || "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FGroup%2015.png?alt=media&token=d460bb38-7019-4808-b143-3885bbb62dd7"} alt="" className="w-full h-full object-contain cursor-pointer" />
                     </div>
                 )}
-                <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' />
+                <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' capture="environment" />
                 <button onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b]"><FaSearchengin className='text-2xl' />Quick Search</button>
             </div>
 
