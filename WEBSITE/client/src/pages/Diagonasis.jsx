@@ -81,7 +81,6 @@ export default function Diagonasis() {
             console.log("File deleted successfully");
         } catch (error) {
             console.error("Error deleting file:", error);
-            setOutputError(true);
         }
     };
 
@@ -103,6 +102,7 @@ export default function Diagonasis() {
             const data = await res.json();
             if (data.success === false) {
                 console.log(data.message);
+                setOutputError(true);
                 return;
             }
             setOutput(data.output);
@@ -112,6 +112,7 @@ export default function Diagonasis() {
             setFile(null);
         } catch (error) {
             console.log(error.message);
+            setOutputError(true);
         } finally {
             setOutPutLoading(false);
         }
