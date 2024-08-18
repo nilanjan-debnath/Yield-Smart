@@ -35,7 +35,7 @@ history.name = "history"
 history.description = "All the conversation details between user and AI"
 
 web_search_tool = TavilySearchResults()
-web_search_tool.name = "Web Search"
+web_search_tool.name = "Web_Search"
 web_search_tool.description = "Retrieve relevant info from web."
 
 class web_search_inputs(BaseModel):
