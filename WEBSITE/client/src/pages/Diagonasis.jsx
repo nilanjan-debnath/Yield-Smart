@@ -89,7 +89,7 @@ export default function Diagonasis() {
             setOutPutLoading(true);
             setOutput('');
             setOutputError(false);
-            const res = await fetch("http://localhost:5173/api/user/imageoutput", {
+            const res = await fetch("/api/user/imageoutput", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
