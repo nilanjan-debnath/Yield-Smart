@@ -144,7 +144,7 @@ export default function Diagonasis() {
                     </div>
                 )}
                 <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' capture="environment" />
-                <button onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b]"><FaSearchengin className='text-2xl' />Quick Search</button>
+                <button disabled={imageUrl === ''} onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b] disabled:bg-[#22F0B2]"><FaSearchengin className='text-2xl' />Quick Search</button>
             </div>
 
             {outputError && (
@@ -168,9 +168,7 @@ export default function Diagonasis() {
                                     <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                                     <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                                     <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
-                                </div> : <pre className='whitespace-normal break-words'>
-                                    {output}
-                                </pre>
+                                </div> : <pre className='whitespace-normal break-words' dangerouslySetInnerHTML={{ __html: output.replace(/\n/g, '<br>')}} />
                             }
                         </div>
                     </div>
