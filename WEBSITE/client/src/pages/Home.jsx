@@ -7,13 +7,14 @@ import problemImg from "../../public/images/problem.jpg"
 import solutionImg from "../../public/images/solution.jpg";
 import solutionLeftImg from "../../public/images/solution image.jpg";
 import benefitsImg from "../../public/images/grow.jpg";
+import Header from '../components/Header';
+import imageUvFilm from "/images/pic1.jpg";
+import imageHidrogel from "/images/pic2.png";
 
 
 export default function Home() {
 
   const [loading, setLoading] = useState(false);
-  const imageUvFilm = "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/000croda_image_downloads.jpg?alt=media&token=46c1d366-2d8b-4957-b98e-1c7491a99f50";
-  const imageHidrogel = "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/Roles-of-hydrogels-in-agriculture.png?alt=media&token=d65dd447-5760-44f7-ba0d-0beee2d5ad82";
 
 
   useEffect(() => {
@@ -39,6 +40,8 @@ export default function Home() {
   };
 
   return (
+    <>
+    <Header />
     <main>
       {loading && (
         <div className="w-full h-screen bg-[#36ADFF] flex items-center justify-center absolute top-0 left-0">
@@ -183,5 +186,6 @@ export default function Home() {
         </div>
       )}
     </main>
+    </>
   )
 }

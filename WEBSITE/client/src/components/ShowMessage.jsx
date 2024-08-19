@@ -125,7 +125,7 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
         <div className='w-full p-2'>
             <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseEnter} className={`flex justify-end items-center gap-2 relative ${editShow ? 'mb-12' : ''}`}>
                 <button onClick={handleEdit} className={`w-10 h-10 flex justify-center items-center bg-blue-100 transition-all duration-300 rounded-full ${isShow ? 'opacity-100' : 'opacity-0'}`}><CiEdit className='text-xl' /></button>
-                <div className="inputBox max-w-[80%] p-4 bg-blue-300 rounded-xl my-2 sm:max-w-[60%]">
+                <div className="inputBox max-w-[80%] p-4 bg-[#2EECB3] rounded-xl my-2 sm:max-w-[60%]">
                     {data.input}
                 </div>
                 <div className={`${editShow ? '' : 'hidden'} editBox absolute right-0 top-0 w-full h-full`}>
@@ -146,16 +146,16 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
                 </div>
             )}
             <div className="flex justify-start my-2">
-                <div className="outputBox max-w-[80%] p-4 bg-yellow-200 rounded-xl sm:max-w-[60%]">
+                <div className="outputBox max-w-[90%] p-4 bg-[#9EF4E6] rounded-xl sm:max-w-[80%]">
                     {data.output === '' ?
                         <div className='w-[64vw] h-24 animate-pulse sm:w-[52vw] md:w-[35vw] lg:w-[23vw] xl:w-[33vw] 2xl:w-[37rem]'>
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
-                        </div>:<Markdown remarkPlugins={[remarkGfm]}>
-                                {data.output}
-                            </Markdown>
-                        }
+                        </div> : <pre className='whitespace-normal break-words'>
+                            {data.output}
+                        </pre>
+                    }
                 </div>
             </div>
         </div>
