@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Logo from "/images/logo.jpg";
 import { BiSolidDashboard } from "react-icons/bi";
+import Logo2 from "/images/dashboard/logoo.png";
+
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -14,7 +16,7 @@ export default function Header() {
         <Link to='/dashboard'>
           <div className="flex gap-2 items-center">
             <img src={Logo} alt="" className="w-12 h-12 bg-yellow-200 rounded-full object-cover" />
-            <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2Ftext%20image.png?alt=media&token=9a46ddf0-f1ef-4961-bcec-476b7ff3f630" alt="" className="h-10 sm:h-12" />
+            <img src={Logo2} alt="" className="h-10 sm:h-12" />
           </div>
         </Link>
         {currentUser ? (

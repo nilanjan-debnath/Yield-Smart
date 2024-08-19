@@ -20,13 +20,7 @@ const __dirname = path.resolve();
 
 const app = express();
 
-const corsOptions = {
-    origin: '*', // Allows all origins
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());

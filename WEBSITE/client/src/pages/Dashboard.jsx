@@ -8,28 +8,21 @@ import { PiPottedPlantFill } from "react-icons/pi";
 import { BsCloudRainHeavyFill } from "react-icons/bs";
 import { IoIosSunny } from "react-icons/io";
 import { Link } from 'react-router-dom';
+import Logo2 from "/images/dashboard/logoo.png";
+import UppBtn1 from "/images/dashboard/upp btn1.png";
+import UppBtn2 from "/images/dashboard/msg btn.png";
+import DownImg from "/images/dashboard/diagonesis.png";
+
 
 export default function Dashboard() {
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, []);
 
     return (
         <>
-            {loading && (
-                <div className="w-full h-screen absolute left-0 top-0 flex justify-center items-center bg-[#01D2A8] z-50">
-                    <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
-                </div>
-            )}
             <div id='header' className="header w-full h-16 bg-[#9EFFE2] flex justify-between items-center px-2 sm:px-4">
                 <Link to='/'>
                     <div className="flex gap-2 items-center">
                         <img src={Logo} alt="" className="w-12 h-12 bg-yellow-200 rounded-full object-cover" />
-                        <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2Ftext%20image.png?alt=media&token=9a46ddf0-f1ef-4961-bcec-476b7ff3f630" alt="" className="h-10 sm:h-12" />
+                        <img src={Logo2} alt="" className="h-10 sm:h-12" />
                     </div>
                 </Link>
                 <div className="flex gap-4 items-center sm:px-4">
@@ -40,14 +33,14 @@ export default function Dashboard() {
             <div className="box1 h-44 mx-4 my-4 relative md:mx-8 sm:h-60 md:h-[40dvh]">
                 <div className="absolute top-0 left-0 h-28 sm:h-40 md:h-44 lg:h-[80%] flex items-start gap-4">
                     <button onClick={() => console.log("top click")} className="w-auto h-auto ">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FGroup%208.png?alt=media&token=c67061d0-f928-4601-976d-6c608bc8021b" alt="" className="h-28 sm:h-44" />
+                        <img src={UppBtn1} alt="" className="h-28 sm:h-44" />
                     </button>
                     <Link to='/chat' className="">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2Fmsg.png?alt=media&token=ec7bdd2b-07ab-4ace-94fe-a19206199ca0" alt="" className="h-12 sm:h-16 lg:h-20" />
+                        <img src={UppBtn2} alt="" className="h-12 sm:h-16 lg:h-20" />
                     </Link>
                 </div>
                 <Link to='/diagonasis' className="">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2Fdiagnosis.png?alt=media&token=5af84137-d49b-4b49-9088-7680ba6edf10" alt="" className="absolute bottom-0 right-0 h-28 sm:h-40 md:h-44 lg:h-[80%]" />
+                    <img src={DownImg} alt="" className="absolute bottom-0 right-0 h-28 sm:h-40 md:h-44 lg:h-[13rem]" />
                 </Link>
             </div>
             <div className="box2 py-6 px-8 sm:px-6 md:px-8">
