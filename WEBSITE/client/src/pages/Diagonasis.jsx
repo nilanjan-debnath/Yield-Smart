@@ -47,6 +47,7 @@ export default function Diagonasis() {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
                     setImageUrl(downloadUrl);
+                    setOutput('');
                 });
             },
         );

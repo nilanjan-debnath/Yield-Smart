@@ -21,3 +21,7 @@ export const output = async (req, res, next) => {
         next(error);
     }
 };
+
+export const readToken = async (req, res) => {
+    return res.status(200).json(req.user);
+}
