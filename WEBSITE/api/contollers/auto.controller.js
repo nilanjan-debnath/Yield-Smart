@@ -28,4 +28,13 @@ export const signIn = async (req, res, next) => {
     }catch(error){
         next(error);
     }
+};
+
+export const logout = (req, res, next) => {
+    try{
+        res.clearCookie('access_token');
+        res.status(200).json("User logout successfully");
+    }catch(error){
+        next(error);
+    }
 }

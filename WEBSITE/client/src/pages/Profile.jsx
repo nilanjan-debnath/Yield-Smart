@@ -3,10 +3,30 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { signOutFailure, signOutStart, signOutSuccess} from '../redux/user/userSlice';
 
 export default function Profile() {
   const {currentUser} = useSelector((state) => state.user);
   const fileRef = useRef(null);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try{
+      dispatch(signOutStart());
+      const res = await fetch("/api/auth/logout");
+      const data = await res.json();
+      if(data.success === false){
+        console.log("logout error: ", data.message);
+        dispatch(signOutFailure(data.message));
+        return;
+      }
+      dispatch(signOutSuccess());
+    }catch(error){
+      console.log("logout error: ", error.message);
+      dispatch(signOutFailure(error.message));
+    }
+  }
 
   return (
     <>
@@ -17,7 +37,7 @@ export default function Profile() {
       </div>
 
       <div className="border border-black flex flex-col items-center gap-4 py-8 px-4">
-        <div onClick={()=> fileRef.current.click()} className="w-28 h-28 overflow-hidden rounded-full border-2 border-black cursor-pointer sm:w-32 sm:h-3">
+        <div onClick={()=> fileRef.current.click()} className="w-28 h-28 overflow-hidden rounded-full border-2 border-black cursor-pointer sm:w-32 sm:h-32">
           <img src={currentUser.avatar} alt="" className="w-full h-full object-contain" />
         </div>
 
@@ -28,7 +48,7 @@ export default function Profile() {
           <input type="password" className="w-full px-4 py-3 rounded-md border border-black outline-none" placeholder='Password' autoComplete='off'/>
           <button className="w-full px-4 py-3 bg-[#12CC94] text-white rounded-md sm:text-lg font-semibold transition-all duration-300 hover:bg-[#11A478] uppercase">Submit</button>
 
-          <button className="w-full px-4 py-3 bg-red-500 text-white rounded-md sm:text-lg font-semibold transition-all duration-300 hover:bg-red-600 uppercase mt-4">Logout</button>
+          <button onClick={handleLogout} className="w-full px-4 py-3 bg-red-500 text-white rounded-md sm:text-lg font-semibold transition-all duration-300 hover:bg-red-600 uppercase mt-4">Logout</button>
         </div>
       </div>
     </>
