@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { useSelector } from 'react-redux';
 import { FaSearchengin } from "react-icons/fa6";
 import { getStorage, uploadBytesResumable, getDownloadURL, ref, deleteObject } from "firebase/storage";
 import { app } from '../firebase';
 import imageCompression from 'browser-image-compression';
 import imageLogo from "../../public/images/dashboard/imageLogo.jpg"
+import ComonHeader from '../components/ComonHeader';
 
 
 export default function Diagonasis() {
-    const { currentUser } = useSelector((state) => state.user);
     const fileRef = useRef(null);
     const [file, setFile] = useState(null);
     const [imgProgress, setImgProgress] = useState(0);
@@ -18,6 +15,8 @@ export default function Diagonasis() {
     const [output, setOutput] = useState('');
     const [outPutLoading, setOutPutLoading] = useState(false);
     const [outputError, setOutputError] = useState(false);
+    const [btnDisabled, setBtnDisabled] = useState(true);
+    console.log("btn disabled: ", btnDisabled);
 
     useEffect(() => {
         if (file && file.size <= 2000000) {
@@ -49,6 +48,7 @@ export default function Diagonasis() {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
                     setImageUrl(downloadUrl);
                     setOutput('');
+                    setBtnDisabled(false);
                 });
             },
         );
@@ -81,6 +81,7 @@ export default function Diagonasis() {
         try {
             await deleteObject(storageRef);
             console.log("File deleted successfully");
+            setBtnDisabled(true);
         } catch (error) {
             console.error("Error deleting file:", error);
         }
@@ -122,16 +123,7 @@ export default function Diagonasis() {
 
     return (
         <div>
-            <div className="w-full py-2 bg-[#9EFFE2] flex items-center justify-between px-4 border-b-2 border-[#4AD0DB] shadow-md sm:px-8">
-                <Link to='/dashboard'>
-                    <FaArrowLeftLong className='text-2xl' />
-                </Link>
-                <Link to='/profile'>
-                    <div className="rounded-full overflow-hidden border-2 border-[#00623D] mx-2 w-10 sm:h-10">
-                        <img src={currentUser.avatar} alt="" className="w-full h-full object-contain" />
-                    </div>
-                </Link>
-            </div>
+            <ComonHeader />
             <div className="w-full flex flex-col items-center py-8 px-4 min-h-[52svh]">
                 {(imgProgress > 0 && imgProgress < 100) && (
                     <div className="w-[95%] h-[15rem] rounded-md relative overflow-hidden sm:w-[25rem]">
@@ -141,12 +133,12 @@ export default function Diagonasis() {
                     </div>
                 )}
                 {(imgProgress === 0 || imgProgress === 100) && (
-                    <div onClick={() => fileRef.current.click()} className=" h-[15rem] rounded-md overflow-hidden sm:w-[25rem] opacity-50">
+                    <div onClick={() => fileRef.current.click()} className=" h-[15rem] rounded-md overflow-hidden sm:w-[25rem]">
                         <img src={imageUrl || imageLogo} alt="" className="w-full h-full object-contain cursor-pointer" />
                     </div>
                 )}
                 <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' capture="environment" />
-                <button disabled={imageUrl === ''} onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b] disabled:bg-[#22F0B2]"><FaSearchengin className='text-2xl' />Quick Diagonesis</button>
+                <button disabled={btnDisabled || imageUrl === ''} onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b] disabled:bg-[#22F0B2]"><FaSearchengin className='text-2xl' />Quick Diagonesis</button>
             </div>
 
             {outputError && (
