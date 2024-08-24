@@ -6,6 +6,7 @@ import { FaSearchengin } from "react-icons/fa6";
 import { getStorage, uploadBytesResumable, getDownloadURL, ref, deleteObject } from "firebase/storage";
 import { app } from '../firebase';
 import imageCompression from 'browser-image-compression';
+import imageLogo from "../../public/images/dashboard/imageLogo.jpg"
 
 
 export default function Diagonasis() {
@@ -140,12 +141,12 @@ export default function Diagonasis() {
                     </div>
                 )}
                 {(imgProgress === 0 || imgProgress === 100) && (
-                    <div onClick={() => fileRef.current.click()} className=" h-[15rem] rounded-md overflow-hidden sm:w-[25rem]">
-                        <img src={imageUrl || "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FGroup%2015.png?alt=media&token=d460bb38-7019-4808-b143-3885bbb62dd7"} alt="" className="w-full h-full object-contain cursor-pointer" />
+                    <div onClick={() => fileRef.current.click()} className=" h-[15rem] rounded-md overflow-hidden sm:w-[25rem] opacity-50">
+                        <img src={imageUrl || imageLogo} alt="" className="w-full h-full object-contain cursor-pointer" />
                     </div>
                 )}
                 <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' capture="environment" />
-                <button disabled={imageUrl === ''} onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b] disabled:bg-[#22F0B2]"><FaSearchengin className='text-2xl' />Quick Search</button>
+                <button disabled={imageUrl === ''} onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b] disabled:bg-[#22F0B2]"><FaSearchengin className='text-2xl' />Quick Diagonesis</button>
             </div>
 
             {outputError && (
@@ -155,7 +156,7 @@ export default function Diagonasis() {
             {(output.length === 0 && imageUrl === '') && (
                 <div className="flex justify-center items-center">
                     <div style={{ alignItems: "inherit" }} className="w-full h-full flex flex-col justify-center textImage my-4 lg:w-1/2">
-                        <h1 className="text-4xl lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[4rem] font-semibold px-4 sm:px-8 py-2 text-center">Upload an Image for Quick Diagonesis</h1>
+                        <h1 className="text-4xl text-[#12CC94] lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[4rem] font-semibold px-4 sm:px-8 py-2 text-center">Upload an Image for Quick Diagonesis</h1>
                     </div>
                 </div>
             )}

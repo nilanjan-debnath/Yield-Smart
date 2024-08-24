@@ -27,13 +27,6 @@
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-
-  .textImage {
-    background: url('https://img.freepik.com/free-photo/abstract-backdrop-with-vibrant-multicolored-shapes-patterns-generated-by-ai_188544-15580.jpg') no-repeat;
-    background-size: cover;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
   code{
     white-space: break-spaces;
   }

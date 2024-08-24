@@ -354,7 +354,7 @@ export default function Chat() {
                             </div>
                         )}
                         {(!fetchLoading && allChat.length) === 0 && (
-                            <div style={{ alignItems: "inherit" }} className="w-full h-full flex flex-col justify-center textImage">
+                            <div style={{ alignItems: "inherit" }} className="w-full h-full flex flex-col justify-center text-[#12CC94]">
                                 <h1 className="text-[5rem] font-semibold px-4 sm:px-8 leading-none lg:px-0 text-center lg:text-start">Hello,</h1>
                                 <h1 className="text-6xl lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[5rem] font-semibold px-4 sm:px-8 py-2 text-center lg:text-start">How can I help you today?</h1>
                             </div>
