@@ -79,8 +79,8 @@ export default function Home() {
               <h1 className="text-xl sm:text-2xl md:text-3xl">What Kind of Problems Do Farmers Face?</h1>
               <p className="py-4 text-justify text-sm sm:text-base">Under traditional agriculture, farmers rely on time-and-volume-based
                 farming strategy which results in resource excess or insufficiency. The lack of real-time insightful
-                data ( pH, temperature, sun light, moisture etc ) in the farm and complexities of conventional
-                agriculture system lead to inefficiency, great manpower, and high operation cost.</p>
+                data ( pH, temperature, sunlight, moisture, etc.) in the farm and complexities of conventional
+                agriculture system lead to inefficiency, great manpower and high operation cost.</p>
             </div>
             <div style={{ boxShadow: "2px 4px 9px 2px" }} className="right w-full h-[17rem] overflow-hidden rounded-lg sm:w-[50%] lg:w-[35%]">
               <img src={problemImg} alt="" className="w-full h-full object-cover" />
@@ -117,7 +117,7 @@ export default function Home() {
           </div>
           <div style={{ background: `url(${benefitsImg}) no-repeat`, backgroundSize: "cover" }}
             id="benefits" className="w-full h-screen px-4 py-4 text-white opacity-90 sm:py-8">
-            <h1 className="text-2xl my-2 text-center font-semibold sm:my-8 sm:text-3xl">Benefits Will You Get</h1>
+            <h1 className="text-2xl my-2 text-center font-semibold sm:my-8 sm:text-3xl">Benefits You will Get</h1>
             <div className="flex flex-col justify-center gap-4 sm:flex-row sm:gap-2 md:gap-8">
               <div className="left border-4 w-full p-8 rounded-lg bg-transparent backdrop-filter backdrop-blur-md sm:w-1/2 sm:px-4 md:px-8 lg:w-[35%]">
                 <ul className="flex flex-col gap-4 text-lg">
@@ -139,7 +139,7 @@ export default function Home() {
               <div className="right border-4 w-[35%] p-8 rounded-lg bg-transparent backdrop-filter backdrop-blur-md hidden sm:block sm:w-1/2 sm:px-4 md:px-8 lg:w-[35%]">
                 <ul className="flex flex-col gap-4 text-lg">
                   <li className="flex flex-col"><span className="font-semibold">Minimum Human Interference</span><span
-                    className="text-base">The crops are kept at optimum temperature, humidity, light, CO2 , and
+                    className="text-base">The crops are kept at optimum temperature, humidity, light, CO2, and
                     soil moisture levels automatically.</span></li>
                   <li className="flex flex-col"><span className="font-semibold">Low Maintenance Costs</span><span
                     className="text-base">The battery-powered sensors will do away with a lot of the repetitive

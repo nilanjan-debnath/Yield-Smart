@@ -390,7 +390,7 @@ export default function Chat() {
                         </div>
                         <div className="flex bg-white w-full px-2 gap-1 sm:px-6 sm:gap-3">
                             <input ref={fileRef} onChange={(e) => setImageFile(e.target.files[0])} type="file" hidden accept='image/*' />
-                            <input disabled={messageLoading} onChange={(e) => setInputMessage(e.target.value)} placeholder='Ask Something?' className='px-4 py-2 rounded-md outline-none border border-black w-[88%]' value={inputMessage}></input>
+                            <input disabled={messageLoading} onChange={(e) => setInputMessage(e.target.value)} placeholder='Ask Something...' className='px-4 py-2 rounded-md outline-none border border-black w-[88%]' value={inputMessage}></input>
                             <button disabled={messageLoading || isOpen} onClick={() => fileRef.current.click()} className={`p-3 transition-all duration-300 bg-gray-100  rounded-full ${isOpen ? '' : 'hover:bg-gray-300'}`}><IoImageOutline className='text-2xl' /></button>
                             <button disabled={messageLoading || inputMessage == '' || isOpen} onClick={handleSend} className="px-4 w-auto py-1 rounded-md bg-[#12c992] text-white flex justify-center items-center disabled:bg-[#2EECB3] sm:w-16 sm:py-2">
                                 {messageLoading ? <div className="animate-spin h-7 w-7 border-4 border-t-4 border-t-white border-gray-300 rounded-full" ></div> : <VscSend className='text-xl sm:text-2xl' />}

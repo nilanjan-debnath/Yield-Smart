@@ -125,9 +125,9 @@ export default function Dashboard() {
                                     <div className="w-full bg-[#9EF4E6] rounded-md flex flex-col gap-2 px-2 py-2 sm:w-[33%] lg:w-[25%] sm:items-center sm:px-0">
                                         <h2 className="text-lg font-semibold md:text-2xl sm:text-center py-2">Soil Nutrients</h2>
                                         <ul className="flex gap-1 w-full sm:flex-col sm:gap-4 sm:w-[90%]">
-                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>N:</span> 150mg/kg</li>
-                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>P:</span> 60mg/kg</li>
-                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>K:</span> 90mg/kg</li>
+                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>N:</span> 150 mg/kg</li>
+                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>P:</span> 60 mg/kg</li>
+                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>K:</span> 90 mg/kg</li>
                                         </ul>
                                     </div>
                                     <div className="flex gap-2 w-full sm:gap-6 sm:w-[60%] lg:w-[52%]">
