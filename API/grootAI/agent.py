@@ -65,7 +65,6 @@ AI:
 - Recent studies suggest using neem oil as an organic treatment for Early Blight. Additionally, resistant tomato varieties are now available.
 
 You have to provide output in exact same manner.
-If you find the text and image not related plats, don't give any response, just ask user to ask queries or send images related to plats.
 """
 # prompt = ChatPromptTemplate.from_messages(
 #     [
