@@ -14,13 +14,13 @@ import DownImg from "/images/dashboard/diagonesis.png";
 
 import { app } from '../firebase';
 import { getDatabase, onValue, ref } from "firebase/database";
+import ToggleBtn from '../components/ToggleBtn';
 
 
 export default function Dashboard() {
     const [sensorData, setSensorData] = useState(null);
-    console.log("sensorDAta: ", sensorData);
+    console.log("sensor data: ", sensorData);
     const [loading, setLoading] = useState(false);
-    console.log("loading: ", loading)
 
     const database = getDatabase(app);
 
@@ -57,7 +57,7 @@ export default function Dashboard() {
                     <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
                 </div>
             )}
-            {(sensorData || !loading) && (
+            {(sensorData) && (
                 <div>
                     <div id='header' className="header w-full h-16 bg-[#9EFFE2] flex justify-between items-center px-2 sm:px-4">
                         <Link to='/'>
@@ -88,7 +88,7 @@ export default function Dashboard() {
                                         <h2 className="text-lg text-center font-semibold md:text-2xl py-2">Temperature</h2>
                                         <div className="flex gap-2 items-center justify-center">
                                             <CiTempHigh className='h-8 w-8 sm:h-12 sm:w-12 text-[#00623D]' />
-                                            <p className="p-1 bg-white rounded-sm font-semibold sm:p-2">35&deg; C</p>
+                                            <p className="p-1 bg-white rounded-sm font-semibold sm:p-2">{sensorData.temp_val}&deg; C</p>
                                         </div>
                                     </div>
                                     <div className="bg-white w-[50%] h-16 sm:h-28 sm:w-[60%]">
@@ -100,7 +100,7 @@ export default function Dashboard() {
                                         <h2 className="text-lg text-center font-semibold md:text-2xl py-2">Humidity</h2>
                                         <div className="flex gap-2 items-center justify-center">
                                             <IoWater className='h-8 w-8 sm:h-12 sm:w-12 text-blue-400' />
-                                            <p className="p-1 bg-white rounded-sm font-semibold sm:p-2">82%</p>
+                                            <p className="p-1 bg-white rounded-sm font-semibold sm:p-2">{sensorData.humidity_val}%</p>
                                         </div>
                                     </div>
                                     <div className="bg-white w-[50%] h-16 sm:h-28 sm:w-[60%]">
@@ -115,8 +115,8 @@ export default function Dashboard() {
                                             <p className="p-1 bg-white rounded-sm font-semibold sm:p-2">82%</p>
                                         </div>
                                     </div>
-                                    <div className="bg-white w-[50%] h-16 sm:h-28 sm:w-[60%]">
-                                        <img src="https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FCombo%20Chart.png?alt=media&token=a25054da-497f-4627-aaf5-2c5de871c448" alt="" className="w-full h-full object-contain" />
+                                    <div className="w-[50%] h-16 sm:h-28 sm:w-[60%] flex justify-center items-center">
+                                        <ToggleBtn />
                                     </div>
                                 </div>
                             </div>
@@ -125,9 +125,9 @@ export default function Dashboard() {
                                     <div className="w-full bg-[#9EF4E6] rounded-md flex flex-col gap-2 px-2 py-2 sm:w-[33%] lg:w-[25%] sm:items-center sm:px-0">
                                         <h2 className="text-lg font-semibold md:text-2xl sm:text-center py-2">Soil Nutrients</h2>
                                         <ul className="flex gap-1 w-full sm:flex-col sm:gap-4 sm:w-[90%]">
-                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>N:</span> 82mg/kg</li>
-                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>N:</span> 82mg/kg</li>
-                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>N:</span> 82mg/kg</li>
+                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>N:</span> 150mg/kg</li>
+                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>P:</span> 60mg/kg</li>
+                                            <li className="text-xs sm:text-base w-[33.3%] sm:w-full rounded-md bg-white py-2 px-2 sm:px-4"><span className='font-bold text-red-500'>K:</span> 90mg/kg</li>
                                         </ul>
                                     </div>
                                     <div className="flex gap-2 w-full sm:gap-6 sm:w-[60%] lg:w-[52%]">
