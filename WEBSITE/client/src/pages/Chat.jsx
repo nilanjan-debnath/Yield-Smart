@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { conversationIdFailure, conversationIdSuccess } from '../redux/conversationId/conversationSlice';
 import ShowMessage from '../components/ShowMessage';
 import imageCompression from 'browser-image-compression';
+import ChatHeader from '../components/ChatHeader';
 
 export default function Chat() {
 
@@ -324,11 +325,11 @@ export default function Chat() {
     };
 
     return (
-        <div className='w-full h-[91dvh]'>
-            <div className="flex w-full h-[91dvh] relative overflow-hidden">
-                <button onClick={() => setIsOpen(!isOpen)} className="md:hidden absolute top-2 right-1 p-1 bg-gray-200 rounded-full z-30">{isOpen ? <RxCross2 className='text-2xl' /> : <IoIosMenu className='text-2xl' />}</button>
-                <div ref={leftDivRef} className={`sideLeft absolute top-0 w-[70%] h-full py-3 flex items-center flex-col overflow-y-auto border-r-4 border-gray-300 z-40 bg-white transition-all duration-500 md:static sm:w-[60%] md:w-[30%] xl:w-[20%] 2xl:w-[15%] ${isOpen ? 'left-0' : '-left-[100%]'} scrollbar-custom`}>
-                    <button onClick={createNewChat} className="px-4 py-2 bg-blue-500 text-white rounded-md w-[90%] h-10">New Chat</button>
+        <div className='w-full h-[100dvh]'>
+            <div className="flex w-full h-[100dvh] relative overflow-hidden">
+                <button onClick={() => setIsOpen(!isOpen)} className="md:hidden absolute top-20 right-1 p-1 bg-gray-200 rounded-full z-30">{isOpen ? <RxCross2 className='text-2xl' /> : <IoIosMenu className='text-2xl' />}</button>
+                <div ref={leftDivRef} className={`sideLeft absolute top-0 w-[70%] h-full py-3 flex items-center flex-col overflow-y-auto border-r-4 border-gray-300 z-40 bg-[#F1F6F5] transition-all duration-500 md:static sm:w-[60%] md:w-[30%] xl:w-[20%] 2xl:w-[15%] ${isOpen ? 'left-0' : '-left-[100%]'} scrollbar-custom`}>
+                    <button onClick={createNewChat} className="px-4 py-2 bg-[#12c992] text-white rounded-md w-[90%] h-10">New Chat</button>
                     <div className="w-full flex flex-col items-center gap-3 my-4 scrollbar-custom overflow-y-auto">
                         <h3 className="w-[90%] px-1 font-semibold mt-2 text-gray-600 text-sm">All Chats</h3>
                         {(conversationData && !conversationData.includes(conversationId)) &&
@@ -337,17 +338,18 @@ export default function Chat() {
                             </div>}
                         {conversationData && (
                             conversationData.map((ele) => (
-                                <div key={ele} className="w-[90%] h-10 border bg-white rounded-lg overflow-hidden">
-                                    <button onClick={() => handleChangeConversationId(ele)} className={`truncate px-4 py-2 w-full transition-all duration-300 hover:bg-blue-100 ${ele === conversationId ? 'bg-blue-100' : ''}`}>{ele}</button>
+                                <div key={ele} className="w-[90%] h-10 border bg-[#F1F6F5] rounded-lg overflow-hidden">
+                                    <button onClick={() => handleChangeConversationId(ele)} className={`truncate px-4 py-2 w-full transition-all duration-300 hover:bg-blue-200 ${ele === conversationId ? 'bg-blue-200' : ''}`}>{ele}</button>
                                 </div>
                             ))
                         )}
                     </div>
                 </div>
                 <div className="sideRight w-full h-full relative md:w-[70%] xl:w-[80%] 2xl:w-[85%]">
-                    <div ref={divRef} className={`body w-full h-[85%] px-2 py-4 overflow-y-auto scrollbar-custom lg:px-32 transition-all duration-500 ${isOpen ? 'opacity-60' : ''}`}>
+                    <ChatHeader />
+                    <div ref={divRef} className={`body w-full h-[76%] px-2 py-4 overflow-y-auto scrollbar-custom lg:px-32 transition-all duration-500 bg-[#F1F6F5] ${isOpen ? 'opacity-60' : ''}`}>
                         {fetchLoading && (
-                            <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center bg-[#36ADFF]">
+                            <div className="w-full h-screen absolute left-0 top-0 flex justify-center items-center bg-[#01D2A8] z-50">
                                 <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
                             </div>
                         )}
@@ -390,7 +392,7 @@ export default function Chat() {
                             <input ref={fileRef} onChange={(e) => setImageFile(e.target.files[0])} type="file" hidden accept='image/*' />
                             <input disabled={messageLoading} onChange={(e) => setInputMessage(e.target.value)} placeholder='Ask some thing?' className='px-4 py-2 rounded-md outline-none border border-black w-[88%]' value={inputMessage}></input>
                             <button disabled={messageLoading || isOpen} onClick={() => fileRef.current.click()} className={`p-3 transition-all duration-300 bg-gray-100  rounded-full ${isOpen ? '' : 'hover:bg-gray-300'}`}><IoImageOutline className='text-2xl' /></button>
-                            <button disabled={messageLoading || inputMessage == '' || isOpen} onClick={handleSend} className="px-4 w-auto py-1 rounded-md bg-blue-500 text-white flex justify-center items-center disabled:bg-blue-400 sm:w-16 sm:py-2">
+                            <button disabled={messageLoading || inputMessage == '' || isOpen} onClick={handleSend} className="px-4 w-auto py-1 rounded-md bg-[#12c992] text-white flex justify-center items-center disabled:bg-[#2EECB3] sm:w-16 sm:py-2">
                                 {messageLoading ? <div className="animate-spin h-7 w-7 border-4 border-t-4 border-t-white border-gray-300 rounded-full" ></div> : <VscSend className='text-xl sm:text-2xl' />}
                             </button>
                         </div>

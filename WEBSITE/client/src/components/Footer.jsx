@@ -20,7 +20,7 @@ export default function Footer() {
                                 </Link>
                                 <li className='cursor-pointer'>Careers</li>
                                 <li className='cursor-pointer'>Press Releases</li>
-                                <li className='cursor-pointer'>AgriGrow Science</li>
+                                <li className='cursor-pointer'>YieldSmart Science</li>
                             </ul>
                         </div>
                         <div className="">
@@ -34,11 +34,11 @@ export default function Footer() {
                         <div className="">
                             <h1 className="text-lg font-semibold text-white">Grow with Us</h1>
                             <ul className='flex flex-col gap-2'>
-                                <li className='cursor-pointer'>Connect with AgriGrow</li>
-                                <li className='cursor-pointer'>AgriGrow Global Selling</li>
+                                <li className='cursor-pointer'>Connect with YieldSmart</li>
+                                <li className='cursor-pointer'>YieldSmart Global Selling</li>
                                 <li className='cursor-pointer'>Protect and Build Your Crop</li>
                                 <li className='cursor-pointer'>Become an Affiliate</li>
-                                <li className='cursor-pointer'>Fulfilment by AgriGrow</li>
+                                <li className='cursor-pointer'>Fulfilment by YieldSmart</li>
                             </ul>
                         </div>
                         <div className="">
