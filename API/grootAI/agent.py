@@ -66,15 +66,15 @@ AI:
 
 You have to provide output in exact same manner.
 """
-# prompt = ChatPromptTemplate.from_messages(
-#     [
-#         ("system", "{preamble}",),
-#         ("human", "{input}"),
-#         ("placeholder", "{agent_scratchpad}"),
-#     ]
-# )
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", "{preamble}",),
+        ("human", "{input}"),
+        ("placeholder", "{agent_scratchpad}"),
+    ]
+)
 
-prompt = ChatPromptTemplate.from_template("{input}")
+# prompt = ChatPromptTemplate.from_template("{input}")
 
 llm = ChatCohere(model="command-r")
 agent = create_cohere_react_agent(llm, tools, prompt)
@@ -159,7 +159,6 @@ Example Output:
 - Rotate crops and avoid planting tomatoes in the same spot every year.
 
 You have to provide output in exact same manner.
-If you find the image not related plats, don't give any response, just ask user to send images related to plats.
 Don't send it in markdown format, try to send it in simple string as it is.
 """
 
