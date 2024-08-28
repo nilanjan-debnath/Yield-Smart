@@ -165,3 +165,4 @@ Don't send it in markdown format, try to send it in simple string as it is.
 def direct_image(user_input):
     image_url = user_input['image']
     return tools_list.visual_tool.invoke({"prompt":preamble1, "image_url":image_url})
+
