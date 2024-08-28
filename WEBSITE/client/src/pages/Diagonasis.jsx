@@ -138,7 +138,7 @@ export default function Diagonasis() {
                     </div>
                 )}
                 <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' capture="environment" />
-                <button disabled={btnDisabled || imageUrl === ''} onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b] disabled:bg-[#22F0B2]"><FaSearchengin className='text-2xl' />Quick Diagonesis</button>
+                <button disabled={btnDisabled || imageUrl === ''} onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b] disabled:bg-[#22F0B2]"><FaSearchengin className='text-2xl' />Quick Diagnosis</button>
             </div>
 
             {outputError && (
@@ -148,7 +148,7 @@ export default function Diagonasis() {
             {(output.length === 0 && imageUrl === '') && (
                 <div className="flex justify-center items-center">
                     <div style={{ alignItems: "inherit" }} className="w-full h-full flex flex-col justify-center textImage my-4 lg:w-1/2">
-                        <h1 className="text-4xl text-[#12CC94] lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[4rem] font-semibold px-4 sm:px-8 py-2 text-center">Upload an Image for Quick Diagonesis</h1>
+                        <h1 className="text-4xl text-[#12CC94] lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[4rem] font-semibold px-4 sm:px-8 py-2 text-center">Upload an Image for Quick Diagnosis</h1>
                     </div>
                 </div>
             )}

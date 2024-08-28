@@ -80,7 +80,7 @@ export default function Dashboard() {
                         </Link>
                     </div>
                     <div className="box2 py-6 px-8 sm:px-6 md:px-8">
-                        <h1 className="text-3xl py-2 font-semibold text-[#00623D] border-b-4 border-[#00623D]">Plant monitoring</h1>
+                        <h1 className="text-3xl py-2 font-semibold text-[#00623D] border-b-4 border-[#00623D]">Plant Monitoring</h1>
                         <div className="flex flex-col gap-4 py-4">
                             <div className="flex flex-col justify-center gap-6 sm:flex-row">
                                 <div className="w-full bg-[#9EF4E6] rounded-md flex gap-2 items-center justify-around py-2 sm:w-[33%] lg:w-[25%] sm:flex-col sm:justify-normal">

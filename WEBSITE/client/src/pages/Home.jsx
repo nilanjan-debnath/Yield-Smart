@@ -59,12 +59,12 @@ export default function Home() {
               <img src={circularImg} alt="" className="w-full h-full object-contain" />
             </div>
             <div className="absolute top-16 left-2 lg:top-[60%] lg:left-8">
-              <h1 className="text-3xl font-semibold text-white sm:text-4xl">Grow more, Waste less:</h1>
+              <h1 className="text-3xl font-semibold text-white sm:text-4xl">Grow More, Waste Less:</h1>
               <h1 className="text-2xl text-white sm:text-4xl">The future of sustainable agriculture is here</h1>
             </div>
             <div className="flex gap-1 px-1 py-4 sm:gap-2 lg:px-8">
               <HashLink smooth to="#chalange"
-                className="text-base text-gray-500 font-semibold border-r-4 border-gray-500 px-1 sm:px-2 sm:text-xl">Chalenges</HashLink>
+                className="text-base text-gray-500 font-semibold border-r-4 border-gray-500 px-1 sm:px-2 sm:text-xl">Challenges</HashLink>
               <HashLink smooth to="#solution"
                 className="text-base text-gray-500 font-semibold border-r-4 border-gray-500 px-1 sm:px-2 sm:text-xl">Solutions</HashLink>
               <HashLink smooth to="#benefits" className="text-base text-gray-500 font-semibold border-r-4 border-gray-500 px-1 sm:px-2 sm:text-xl">Benefits</HashLink>
