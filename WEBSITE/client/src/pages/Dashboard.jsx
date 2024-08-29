@@ -21,6 +21,7 @@ export default function Dashboard() {
     const [sensorData, setSensorData] = useState(null);
     console.log("sensor data: ", sensorData);
     const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState('OFF');
 
     const database = getDatabase(app);
 
@@ -115,8 +116,12 @@ export default function Dashboard() {
                                             <p className="p-1 bg-white rounded-sm font-semibold sm:p-2">82%</p>
                                         </div>
                                     </div>
-                                    <div className="w-[50%] h-16 sm:h-28 sm:w-[60%] flex justify-center items-center">
-                                        <ToggleBtn />
+                                    <div className="w-[50%] h-20 sm:h-28 sm:w-[60%] flex flex-col justify-center items-center bg-white gap-2 md:gap-4">
+                                        <p className='font-semibold'>Pump Status</p>
+                                        <div className="flex items-center gap-4 uppercase lg:text-lg sm:flex-col sm:gap-1 lg:flex-row lg:gap-2 xl:gap-4">
+                                        <h3 className="">{status}</h3>
+                                        <ToggleBtn setStatus={setStatus} status={status} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

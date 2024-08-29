@@ -54,7 +54,7 @@ export default function SignIn() {
           <button disabled={loading} className="bg-blue-600 text-xl text-white font-semibold w-full py-2 rounded-lg transition-all duration-300 hover:bg-blue-500 disabled:bg-blue-400">{loading ? 'Loading...': 'Login'}</button>
           {/* <OAuth /> */}
         </form>
-        <p className='px-6 text-xs font-semibold my-4'>By continuing, you agree to YieldSmart's terms of service and acknowledge you've read our privacy policy</p>
+        <p className='px-6 text-xs font-semibold my-4'>By continuing, you agree to YieldSmart's terms of service and acknowledge you've read our privacy policy.</p>
         <div className="flex gap-2 px-4 my-8">
           <p>Don't have an account?</p>
           <Link to='/sign-up' className='text-blue-500 font-semibold'>Sign Up</Link>
