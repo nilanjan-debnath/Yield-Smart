@@ -4,9 +4,9 @@
 #include "addons/TokenHelper.h"
 #include "addons/RTDBHelper.h"
 
-#define WIFI_SSID "Abhi"
-#define WIFI_PASS "ankufiber"
-#define API_KEY "AIzaSyCXsFY6ri6v3Tidttf75Xqh3zvo9Y-79K4"
+#define WIFI_SSID ""
+#define WIFI_PASS ""
+#define API_KEY ""
 #define DATABASE_URL "https://yield-smart-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
 #define rain_pin 25
