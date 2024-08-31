@@ -5,6 +5,7 @@ import time
 import pickle
 import threading
 from pathlib import Path
+from dotenv import load_dotenv
 from PIL import Image, ImageTk
 import google.generativeai as genai
 
@@ -23,9 +24,10 @@ for _ in posList:
 processing = False
 stop_event = threading.Event()
 
-# TODO:  ENTER THE GOOGLE_API_KEY HERE
-GOOGLE_API_KEY="REPLACE_WITH_YOUR_API_KEY" 
-genai.configure(api_key=GOOGLE_API_KEY)
+load_dotenv()
+API_KEY=os.getenv('GOOGLE_API_KEY')
+
+genai.configure(api_key=API_KEY)
 generation_config = {
     "temperature": 0.4,
     "top_p": 1,
@@ -37,7 +39,7 @@ safety_settings = [
     for category in ["HARASSMENT", "HATE_SPEECH", "SEXUALLY_EXPLICIT", "DANGEROUS_CONTENT"]
 ]
 model = genai.GenerativeModel(
-    model_name="gemini-pro-vision",
+    model_name="gemini-1.5-flash",
     generation_config=generation_config,
     safety_settings=safety_settings,
 )
@@ -56,8 +58,7 @@ def get_response(image):
     image_path = Path(filename)
     image_data = {"mime_type": "image/jpeg", "data": image_path.read_bytes()}
     response = generate_gemini_response(image_data)
-    print(response)
-    # os.remove(filename)
+    # print(response)
     return response
 
 def feild_check(image, i):

@@ -6,19 +6,22 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
-import Disease from './pages/Disease';
+import Chat from './pages/Chat';
+import Dashboard from './pages/Dashboard';
+import Diagonasis from './pages/Diagonasis';
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/disease' element={<Disease />} />
         <Route element={<PrivateRoute />} >
           <Route path='/profile' element={<Profile />} />
+          <Route path='/chat' element={<Chat />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/diagonasis' element={<Diagonasis />} />
         </Route>
       </Routes>
     </BrowserRouter>

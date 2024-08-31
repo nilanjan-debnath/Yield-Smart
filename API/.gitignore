@@ -1,0 +1,8 @@
+db.sqlite3
+.venv
+.env
+pip_list.txt
+__pycache__/
+*.sqlite3
+firebase_config.json
+saved_image.jpg

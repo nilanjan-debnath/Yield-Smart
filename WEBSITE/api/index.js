@@ -3,9 +3,9 @@ import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import geminiRoute from "./routes/gmini.route.js";
-import {GoogleGenerativeAI} from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI("api_key");
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import path from "path";
 
 
 dotenv.config();
@@ -16,9 +16,14 @@ mongoose.connect(process.env.MONGO).then(() => {
     console.log(err);
 });
 
+const __dirname = path.resolve();
+
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
+app.use(cookieParser());
 
 app.listen(3000, ()=> {
     console.log("server is running port 3000");
@@ -27,7 +32,12 @@ app.listen(3000, ()=> {
 // write route here
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
-app.use("/api/gemini", geminiRoute);
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 // error handle middleware
 app.use((err, req, res, next) => {
@@ -40,16 +50,3 @@ app.use((err, req, res, next) => {
     });
 });
 
-// async function run() {
-//     // For text-only input, use the gemini-pro model
-//     const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-  
-//     const prompt = "Write a story about a magic backpack."
-  
-//     const result = await model.generateContent(prompt);
-//     const response = await result.response;
-//     const text = response.text();
-//     console.log(text);
-// }
-
-// run();
