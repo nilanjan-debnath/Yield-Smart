@@ -5,9 +5,9 @@
 #include "Audio.h"
 
 // WiFi credentials
-#define WIFI_SSID "Abhi"
-#define PASSWORD "ankufiber"
-#define OPENAI_API_KEY "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"
+#define WIFI_SSID ""
+#define PASSWORD ""
+#define OPENAI_API_KEY ""
 
 // Configure I2S pins
 #define I2S_DOUT      25
