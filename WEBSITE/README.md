@@ -12,11 +12,16 @@ YieldSmart is a comprehensive agricultural solution encompassing both a web plat
 
 ## Features
 
-- **Real-Time Monitoring:** Through IoT integration, farmers can monitor environmental conditions and crop health in real-time using both the web platform and the mobile app. This includes tracking parameters such as temperature, humidity, soil moisture, and more, allowing for timely interventions to mitigate risks and optimize crop growth.
-  
-- **Mobile Imaging for Disease Diagnosis:** The Android mobile application enables farmers to capture and upload photos of plant leaves directly from their smartphones. Leveraging advanced computer vision technology, the app analyzes these images to identify symptoms of crop diseases. Integration with the Gemei API provides accurate disease diagnoses and recommendations for management strategies.
+- **Real-Time Monitoring:** Monitor environmental conditions and crop health in real-time through IoT integration. Track parameters such as temperature, humidity, and soil moisture via both the web platform and the Progressive Web App (PWA). This enables timely interventions to mitigate risks and optimize crop growth.
 
-- **Notification and Alerts:** Both the web platform and the mobile app provide users with notifications and alerts regarding important events such as disease outbreaks, adverse weather conditions, or critical changes in environmental parameters. These notifications enable farmers to take immediate action to protect their crops and optimize farm operations.
+- **PWA for Disease Diagnosis:** Use the PWA to capture and upload photos of plant leaves directly from smartphones or other devices. Advanced computer vision technology analyzes these images to identify symptoms of crop diseases. Integration with the Gemei API provides accurate disease diagnoses and recommendations for management strategies.
+
+- **Quick Diagnosis:** A dedicated page for quick diagnosis allows users to capture an image of their crops directly through the PWA and receive immediate feedback on potential issues. This feature leverages fast image processing and machine learning algorithms to provide instant results.
+
+- **Chat Section:** Engage in real-time conversations with an AI assistant through the chat section. Users can upload crop images and ask for suggestions or advice on how to manage specific issues. This feature uses AI to provide instant support and guidance to farmers.
+
+- **Notification and Alerts:** Receive notifications and alerts on both the web platform and the PWA regarding important events such as disease outbreaks, adverse weather conditions, or critical changes in environmental parameters. These alerts help farmers take immediate action to protect their crops and optimize farm operations.
+
 
 ## Technologies Used
 
