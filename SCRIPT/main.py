@@ -32,7 +32,7 @@ generation_config = {
     "temperature": 0.4,
     "top_p": 1,
     "top_k": 32,
-    "max_output_tokens": 4096,
+    "max_output_tokens": 1,
 }
 safety_settings = [
     {"category": f"HARM_CATEGORY_{category}", "threshold": "BLOCK_MEDIUM_AND_ABOVE"}
@@ -47,9 +47,14 @@ input_prompt = """
 As a highly skilled plant pathologist, your expertise is indispensable in our pursuit of maintaining optimal plant health. You will be provided with information or samples related to plant diseases, and your role involves conducting a detailed analysis to identify the plat is disease or not.
 only tell "True" if the plant is diseased else "Flase" and nothing else withit.
 """
+t = time.time()
 def generate_gemini_response(image_path):
+    global t
+    x = 5 - (time.time() - t)
+    time.sleep({x>0:x}.get(True, 0))
     prompt = input_prompt
     response = model.generate_content([prompt, image_path])
+    t = time.time()
     return response.text
 
 def get_response(image):
@@ -72,6 +77,7 @@ def feild_check(image, i):
         imgcrop = image[y:y+height, x:x+width]
         state[i] = 0
         response = get_response(imgcrop)
+        print(response)
         if "True" in response:
             state[i] = 2
         if "False" in response:
