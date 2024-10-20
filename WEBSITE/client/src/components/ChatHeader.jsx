@@ -13,7 +13,7 @@ export default function ChatHeader({setIsOpen, isOpen, leftDivRef}) {
                 <FaArrowLeftLong className='text-2xl' />
             </Link>
             <div className="flex items-center gap-4">
-                <button onClick={() => setIsOpen(!isOpen)} className=""><FaClockRotateLeft className='text-2xl' /></button>
+                <button onClick={() => setIsOpen(!isOpen)} className="md:hidden"><FaClockRotateLeft className='text-2xl' /></button>
                 <Link to='/profile'>
                     <div className="rounded-full overflow-hidden border-2 border-[#00623D] mx-2 w-10 sm:h-10">
                         <img src={currentUser.avatar} alt="" className="w-full h-full object-contain" />
