@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { VscSend } from "react-icons/vsc";
-import { IoIosMenu } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { IoImageOutline } from "react-icons/io5";
 

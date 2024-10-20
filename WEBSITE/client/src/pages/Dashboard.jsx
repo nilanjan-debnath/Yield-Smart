@@ -15,6 +15,7 @@ import DownImg from "/images/dashboard/diagonesis.png";
 import { app } from '../firebase';
 import { getDatabase, onValue, ref } from "firebase/database";
 import ToggleBtn from '../components/ToggleBtn';
+import { useSelector } from 'react-redux';
 
 
 export default function Dashboard() {
@@ -22,6 +23,7 @@ export default function Dashboard() {
     console.log("sensor data: ", sensorData);
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('OFF');
+    const {currentUser} = useSelector((state) => state.user);
 
     const database = getDatabase(app);
 
@@ -40,11 +42,11 @@ export default function Dashboard() {
                     setSensorData(data);
                 }
                 setLoading(false);
-            }, 
-            (error) => {
-                console.error("realtime db error: ", error);
-                setLoading(false); // Set loading to false in case of an error
-            });
+            },
+                (error) => {
+                    console.error("realtime db error: ", error);
+                    setLoading(false); // Set loading to false in case of an error
+                });
         } catch (error) {
             console.log("realtime db error: ", error);
             setLoading(false);
@@ -69,7 +71,11 @@ export default function Dashboard() {
                         </Link>
                         <div className="flex gap-4 items-center sm:px-4">
                             <button className="p-2 rounded-full"><BsFillBellFill className='text-xl hidden sm:text-2xl sm:block text-[#00623D]' /></button>
-                            <Link to='/profile' className="p-2 rounded-full bg-white"><FaUserAlt className='text-xl sm:text-2xl text-[#00623D]' /></Link>
+                            <Link to='/profile' className="">
+                                <div className="rounded-full overflow-hidden border-2 border-[#00623D] mx-2 w-10 sm:h-10">
+                                    <img src={currentUser.avatar} alt="" className="w-full h-full object-contain" />
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="box1 h-44 mx-4 my-4 relative md:mx-8 sm:h-60 md:h-[40dvh]">
@@ -119,8 +125,8 @@ export default function Dashboard() {
                                     <div className="w-[50%] h-20 sm:h-28 sm:w-[60%] flex flex-col justify-center items-center bg-white gap-2 md:gap-4">
                                         <p className='font-semibold'>Pump Status</p>
                                         <div className="flex items-center gap-4 uppercase lg:text-lg sm:flex-col sm:gap-1 lg:flex-row lg:gap-2 xl:gap-4">
-                                        <h3 className="">{status}</h3>
-                                        <ToggleBtn setStatus={setStatus} status={status} />
+                                            <h3 className="">{status}</h3>
+                                            <ToggleBtn setStatus={setStatus} status={status} />
                                         </div>
                                     </div>
                                 </div>
