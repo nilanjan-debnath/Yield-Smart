@@ -1,4 +1,5 @@
 env
 .env
-tmp.jpg
-feild_vid.mp4
+*.jpg
+*.mp4
+*.ipynb

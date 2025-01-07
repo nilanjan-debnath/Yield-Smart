@@ -2,18 +2,28 @@ import os
 import sys
 import cv2
 import time
-import pickle
+import json
 import threading
 from pathlib import Path
 from dotenv import load_dotenv
 from PIL import Image, ImageTk
 import google.generativeai as genai
 
-width = 458
-height = 407
+# for field_vid.mp4
+# width = 458
+# height = 407
+# file = "file_pos.json"
+# video_file = "feild_vid.mp4"
+
+# for field_vid1.mp4
+width = 300
+height = 350
+file = "file_pos1.json"
+video_file = "feild_vid1.mp4"
+
 try:
-    with open('Feild_Pos', 'rb') as f:
-        posList = pickle.load(f)
+    with open(file, 'r') as f:
+        posList = json.load(f)
 except:
     posList = []
 
@@ -45,7 +55,7 @@ model = genai.GenerativeModel(
 )
 input_prompt = """
 As a highly skilled plant pathologist, your expertise is indispensable in our pursuit of maintaining optimal plant health. You will be provided with information or samples related to plant diseases, and your role involves conducting a detailed analysis to identify the plat is disease or not.
-only tell "True" if the plant is diseased else "Flase" and nothing else withit.
+only tell "True" if the plant is diseased else "False" and nothing else with it.
 """
 t = time.time()
 def generate_gemini_response(image_path):
@@ -87,7 +97,7 @@ def feild_check(image, i):
 def border(image):
     global state
     for i, pos in enumerate(posList):
-        thickness = 5
+        thickness = 2
         if state[i] == 0:
             colour = (0, 0, 0)
         elif state[i] == 1:
@@ -102,7 +112,7 @@ def border(image):
 def opencv_window():
     global processing
     global stop_event
-    cap = cv2.VideoCapture("feild_vid.mp4")
+    cap = cv2.VideoCapture(video_file)
     while True:
         success, image = cap.read()
         if success:

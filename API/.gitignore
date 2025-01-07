@@ -4,5 +4,6 @@ db.sqlite3
 pip_list.txt
 __pycache__/
 *.sqlite3
+*.tldr
 firebase_config.json
 saved_image.jpg

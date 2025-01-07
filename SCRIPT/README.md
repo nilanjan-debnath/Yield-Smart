@@ -8,8 +8,8 @@
 ## Run all the command on the terminal inside **SCRIPT** directory
 
 ## Run this command to create a new environment
-`python -m venv env`<br>
-`env\Scripts\activate`
+`python -m venv .venv`<br>
+`.venv\Scripts\activate`
 ## Install the required libraries using this command
 `python.exe -m pip install --upgrade pip`<br>
 `pip install pathlib pillow python-dotenv opencv-python google-generativeai gdown`
@@ -17,8 +17,9 @@
 ## Add your google api key at line 26
 `GOOGLE_API_KEY="REPLACE_WITH_YOUR_API_KEY" `
 
-## Downloading your custom field demo video
+## Downloading your custom field demo video 1 and 2
 `gdown https://drive.google.com/uc?id=1FPj_SMQiiRSJVxZZEGsTDwZaYYNW6ES7`
+`gdown https://drive.google.com/uc?id=13Ie7_HmMvwKOneTANVXRG43DtCLt6a7d`
 
 ## Run the script
 `python main.py`
