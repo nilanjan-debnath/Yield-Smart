@@ -6,9 +6,9 @@ export default function Footer() {
     return (
         <div>
             <footer>
-                <div className='bg-[#232f3e] text-gray-300 px-2'>
+                <div className='bg-[#099A6D] text-white px-2'>
                     <HashLink smooth to='#header'>
-                        <button className='w-full text-center text-xl font-semibold bg-[#314153] py-3 hover:bg-[#33455b]'>Back
+                        <button className='w-full text-center text-xl font-semibold bg-[#0DB482] py-3'>Back
                             to Top</button>
                     </HashLink>
                     <div className="flex gap-6 justify-around py-6 flex-wrap">

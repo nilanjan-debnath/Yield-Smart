@@ -22,9 +22,18 @@ export const signIn = async (req, res, next) => {
         if(!validUser) return next(errorHandle(404, "User not found"));
         const validPasswod = bcryptjs.compareSync(password, validUser.password);
         if(!validPasswod) return next(errorHandle(404, "Wrong Credentials"));
-        const token = jwt.sign({id: validUser._id}, process.env.JWT_SECRET);
+        const token = jwt.sign({_id: validUser._id, email:validUser.email, username: validUser.username, avatar: validUser.avatar}, process.env.JWT_SECRET);
         const {password: pass, ...rest} = validUser._doc;
-        res.cookie('access_token', token, {httpOnly: true}).status(200).json(rest);
+        res.cookie('access_token', token, {httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000}).status(200).json(rest);
+    }catch(error){
+        next(error);
+    }
+};
+
+export const logout = (req, res, next) => {
+    try{
+        res.clearCookie('access_token');
+        res.status(200).json("User logout successfully");
     }catch(error){
         next(error);
     }

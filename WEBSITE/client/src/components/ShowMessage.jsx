@@ -126,7 +126,9 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
             <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseEnter} className={`flex justify-end items-center gap-2 relative ${editShow ? 'mb-12' : ''}`}>
                 <button onClick={handleEdit} className={`w-10 h-10 flex justify-center items-center bg-blue-100 transition-all duration-300 rounded-full ${isShow ? 'opacity-100' : 'opacity-0'}`}><CiEdit className='text-xl' /></button>
                 <div className="inputBox max-w-[80%] p-4 bg-[#2EECB3] rounded-xl my-2 sm:max-w-[60%]">
-                    {data.input}
+                    <pre className='whitespace-normal break-words'>
+                        {data.input}
+                    </pre>
                 </div>
                 <div className={`${editShow ? '' : 'hidden'} editBox absolute right-0 top-0 w-full h-full`}>
                     <textarea onChange={(e) => setInput(e.target.value)} id="" className='w-full h-full resize-none border border-blue-500 px-4 py-2 rounded-md bg-blue-200 outline-none' defaultValue={data.input}></textarea>
@@ -152,9 +154,7 @@ export default function ShowMessage({ data, index, setEdit, conversationId, show
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                             <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
-                        </div> : <pre className='whitespace-normal break-words'>
-                            {data.output}
-                        </pre>
+                        </div> : <pre className='whitespace-normal break-words' dangerouslySetInnerHTML={{ __html: data.output.replace(/\n/g, '<br>') }} />
                     }
                 </div>
             </div>

@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { useSelector } from 'react-redux';
 import { FaSearchengin } from "react-icons/fa6";
 import { getStorage, uploadBytesResumable, getDownloadURL, ref, deleteObject } from "firebase/storage";
 import { app } from '../firebase';
 import imageCompression from 'browser-image-compression';
+import imageLogo from "../../public/images/dashboard/imageLogo.jpg"
+import ComonHeader from '../components/ComonHeader';
 
 
 export default function Diagonasis() {
-    const { currentUser } = useSelector((state) => state.user);
     const fileRef = useRef(null);
     const [file, setFile] = useState(null);
     const [imgProgress, setImgProgress] = useState(0);
@@ -17,6 +15,8 @@ export default function Diagonasis() {
     const [output, setOutput] = useState('');
     const [outPutLoading, setOutPutLoading] = useState(false);
     const [outputError, setOutputError] = useState(false);
+    const [btnDisabled, setBtnDisabled] = useState(true);
+    console.log("btn disabled: ", btnDisabled);
 
     useEffect(() => {
         if (file && file.size <= 2000000) {
@@ -47,6 +47,8 @@ export default function Diagonasis() {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
                     setImageUrl(downloadUrl);
+                    setOutput('');
+                    setBtnDisabled(false);
                 });
             },
         );
@@ -79,6 +81,7 @@ export default function Diagonasis() {
         try {
             await deleteObject(storageRef);
             console.log("File deleted successfully");
+            setBtnDisabled(true);
         } catch (error) {
             console.error("Error deleting file:", error);
         }
@@ -89,7 +92,7 @@ export default function Diagonasis() {
             setOutPutLoading(true);
             setOutput('');
             setOutputError(false);
-            const res = await fetch("http://localhost:5173/api/user/imageoutput", {
+            const res = await fetch("/api/diagonesis/imageOutput", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -120,16 +123,7 @@ export default function Diagonasis() {
 
     return (
         <div>
-            <div className="w-full py-2 bg-[#9EFFE2] flex items-center justify-between px-4 border-b-2 border-[#4AD0DB] shadow-md sm:px-8">
-                <Link to='/dashboard'>
-                    <FaArrowLeftLong className='text-2xl' />
-                </Link>
-                <Link to='/profile'>
-                    <div className="rounded-full overflow-hidden border-2 border-[#00623D] mx-2 w-10 sm:h-10">
-                        <img src={currentUser.avatar} alt="" className="w-full h-full object-contain" />
-                    </div>
-                </Link>
-            </div>
+            <ComonHeader />
             <div className="w-full flex flex-col items-center py-8 px-4 min-h-[52svh]">
                 {(imgProgress > 0 && imgProgress < 100) && (
                     <div className="w-[95%] h-[15rem] rounded-md relative overflow-hidden sm:w-[25rem]">
@@ -140,11 +134,11 @@ export default function Diagonasis() {
                 )}
                 {(imgProgress === 0 || imgProgress === 100) && (
                     <div onClick={() => fileRef.current.click()} className=" h-[15rem] rounded-md overflow-hidden sm:w-[25rem]">
-                        <img src={imageUrl || "https://firebasestorage.googleapis.com/v0/b/yield-smart-web.appspot.com/o/website%20image%2FGroup%2015.png?alt=media&token=d460bb38-7019-4808-b143-3885bbb62dd7"} alt="" className="w-full h-full object-contain cursor-pointer" />
+                        <img src={imageUrl || imageLogo} alt="" className="w-full h-full object-contain cursor-pointer" />
                     </div>
                 )}
                 <input ref={fileRef} onChange={(e) => setFile(e.target.files[0])} type="file" hidden accept='image/*' capture="environment" />
-                <button onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b]"><FaSearchengin className='text-2xl' />Quick Search</button>
+                <button disabled={btnDisabled || imageUrl === ''} onClick={sendRequest} className="flex items-center gap-2 bg-[#12CC94] text-white px-4 py-2 rounded-md font-semibold my-4 transition-all duration-300 hover:bg-[#0caa7b] disabled:bg-[#22F0B2]"><FaSearchengin className='text-2xl' />Quick Diagnosis</button>
             </div>
 
             {outputError && (
@@ -154,7 +148,7 @@ export default function Diagonasis() {
             {(output.length === 0 && imageUrl === '') && (
                 <div className="flex justify-center items-center">
                     <div style={{ alignItems: "inherit" }} className="w-full h-full flex flex-col justify-center textImage my-4 lg:w-1/2">
-                        <h1 className="text-4xl lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[4rem] font-semibold px-4 sm:px-8 py-2 text-center">Upload an Image for Quick Diagonesis</h1>
+                        <h1 className="text-4xl text-[#12CC94] lg:text-5xl lg:px-0 xl:text-6xl 2xl:text-[4rem] font-semibold px-4 sm:px-8 py-2 text-center">Upload an Image for Quick Diagnosis</h1>
                     </div>
                 </div>
             )}
@@ -168,9 +162,7 @@ export default function Diagonasis() {
                                     <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                                     <div className="w-full h-6 bg-gradient-to-r from-cyan-200 to-blue-400 my-2 rounded-lg"></div>
                                     <div className="w-[60%] h-6 bg-gray-400 my-2 rounded-lg"></div>
-                                </div> : <pre className='whitespace-normal break-words'>
-                                    {output}
-                                </pre>
+                                </div> : <pre className='whitespace-normal break-words' dangerouslySetInnerHTML={{ __html: output.replace(/\n/g, '<br>')}} />
                             }
                         </div>
                     </div>

@@ -57,9 +57,9 @@ export default function SignUp() {
           <button disabled={loading} className="bg-blue-600 text-xl text-white font-semibold w-full py-2 rounded-lg transition-all duration-300 hover:bg-blue-500 disabled:bg-blue-400">{loading ? 'Loading...': 'Sign Up'}</button>
           {/* <OAuth /> */}
         </form>
-        <p className='px-6 text-xs font-semibold my-4'>By continuing, you agree to AgriGrow's Terms of Service and acknowledge you've read our Privacy Policy.Notice all collection</p>
+        <p className='px-6 text-xs font-semibold my-4'>By continuing, you agree to YieldSmart's terms of service and acknowledge you've read our privacy policy.</p>
         <div className="flex gap-2 px-4 my-8">
-          <p>Already have an account ?</p>
+          <p>Already have an account?</p>
           <Link to='/sign-in' className='text-blue-500 font-semibold'>Login</Link>
         </div>
       {error && (

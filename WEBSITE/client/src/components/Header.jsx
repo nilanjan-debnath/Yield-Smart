@@ -1,14 +1,39 @@
 import React, { useEffect } from 'react'
-import LogoImg from "../../public/images/logo.jpg";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Logo from "/images/logo.jpg";
 import { BiSolidDashboard } from "react-icons/bi";
 import Logo2 from "/images/dashboard/logoo.png";
-
+import { useDispatch } from 'react-redux';
+import {signInSuccess, signInStart, signInFailure} from "../redux/user/userSlice"
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchTokenData();
+  }, []);
+
+  const fetchTokenData = async () => {
+    try{
+      dispatch(signInStart());
+      const res = await fetch("/api/user/readToken");
+      const data = await res.json();
+      if(data.success === false){
+        console.log("token data error: ", data.message);
+        dispatch(signInFailure(data.message));
+        return;
+      }
+      dispatch(signInSuccess(data));
+      console.log("user data: ", data);
+    }catch(error){
+      console.log("token fetch error: ", error.message);
+      dispatch(signInFailure(error.message));
+    }
+  }
 
   return (
     <header id='header' className='px-2 py-2 bg-[#9EFFE2] sm:px-4 h-[9dvh] border-b-2 border-[#4AD0DB]'>
