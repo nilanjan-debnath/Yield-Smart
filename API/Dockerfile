@@ -19,4 +19,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 80
 
 # Run the application
-CMD ["fastapi", "run", "app/main.py", "--port", "80"]
+CMD ["fastapi", "run", "app/main.py", "--port", "8000"]
