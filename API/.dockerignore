@@ -1,5 +1,6 @@
 # Python-generated files
 __pycache__/
+.ruff_cache/
 *.py[oc]
 build/
 dist/
@@ -12,4 +13,5 @@ wheels/
 # previous file saved for reference
 .prev/
 
-.env
+.git
+.gitignore
