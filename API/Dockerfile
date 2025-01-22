@@ -16,7 +16,7 @@ RUN uv sync --frozen --no-cache --no-dev
 ENV PATH="/app/.venv/bin:$PATH"
 
 # Expose the application port
-EXPOSE 80
+EXPOSE 8000
 
 # Run the application
 CMD ["fastapi", "run", "app/main.py", "--port", "8000"]
