@@ -1,17 +1,22 @@
-FROM python:3.11.4-slim-bullseye
+FROM python:3.12-slim-bullseye
+
+# Set the working directory
 WORKDIR /app
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-# install system dependencies
-RUN apt-get update
-
-# install dependencies
-RUN pip install --upgrade pip
-COPY ./requirements.txt /app/
-RUN pip install django djangorestframework requests pillow python-dotenv langchain langchain_core langchain-community langchain_cohere langchain-google-genai tavily-python firebase-admin whitenoise gunicorn
-
+# Copy application files except .venv
 COPY . /app
 
-ENTRYPOINT [ "gunicorn", "AI_Agent.wsgi", "-b", "0.0.0.0:8000"]
+# Create or update the virtual environment and install dependencies
+RUN uv sync --frozen --no-cache --no-dev
+
+# Ensure the virtual environment binaries are on the PATH
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Expose the application port
+EXPOSE 80
+
+# Run the application
+CMD ["fastapi", "run", "app/main.py", "--port", "80"]

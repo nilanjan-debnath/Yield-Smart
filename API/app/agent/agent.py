@@ -1,22 +1,20 @@
-from . import firebase_data
-from . import tools_list 
+from ..firebase import database
+from . import tools
 
 import os
-import json
+import datetime
 from dotenv import load_dotenv
-from django.conf import settings
 from langchain_cohere import ChatCohere
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain.agents import AgentExecutor
 from langchain_cohere.react_multi_hop.agent import create_cohere_react_agent
 
 load_dotenv()
-os.environ['COHERE_API_KEY'] = os.getenv('COHERE_API_KEY')
-os.environ['LANGCHAIN_API_KEY'] = os.getenv('LANGCHAIN_API_KEY')
-os.environ['LANGCHAIN_TRACING_V2'] = os.getenv('LANGCHAIN_TRACING_V2')
-os.environ['LANGCHAIN_ENDPOINT'] = "https://api.smith.langchain.com"
+os.environ["COHERE_API_KEY"] = os.getenv("COHERE_API_KEY")
+os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
+os.environ["LANGCHAIN_TRACING_V2"] = os.getenv("LANGCHAIN_TRACING_V2")
+os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 
-tools = tools_list.TOOLS
 
 preamble = """You are an AI Plant Disease Specialist with expert knowledge in farming. Your task is to diagnose plant diseases from images provided by the user, identify the disease, determine its probable cause, and offer detailed preventive measures. You have access to advanced visual recognition tools to analyze images and web search tools to gather the latest information on plant diseases.
 
@@ -49,7 +47,7 @@ AI:
 
 1. Image Analysis:
 - The image shows yellowing leaves with brown spots. The lower leaves are more affected.
-    
+
 2. Disease Identification:
 - The disease is likely Early Blight.
 - Probable cause: The fungus Alternaria solani, which thrives in warm, moist conditions.
@@ -68,7 +66,10 @@ You have to provide output in exact same manner.
 """
 prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "{preamble}",),
+        (
+            "system",
+            "{preamble}",
+        ),
         ("human", "{input}"),
         ("placeholder", "{agent_scratchpad}"),
     ]
@@ -77,16 +78,12 @@ prompt = ChatPromptTemplate.from_messages(
 # prompt = ChatPromptTemplate.from_template("{input}")
 
 llm = ChatCohere(model="command-r")
-agent = create_cohere_react_agent(llm, tools, prompt)
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+agent = create_cohere_react_agent(llm, tools.TOOLS, prompt)
+agent_executor = AgentExecutor(agent=agent, tools=tools.TOOLS, verbose=True)
 
 
-input_data = {
-    'datetime':'',
-    'input':'',
-    'image':'',
-    'history':[]
-}
+input_data = {"datetime": "", "input": "", "image": "", "history": []}
+
 
 def groot_ai(user_input):
     global input_data
@@ -95,35 +92,42 @@ def groot_ai(user_input):
     id = str(user_input["id"])
     index = int(user_input["index"])
 
-    conversation = firebase_data.get_data(id)
-    tools_list.set_conversation(conversation)
+    conversation = database.get_data(id)
+    if not conversation:
+        return "The conversation id isn't exist in database."
+
+    tools.set_conversation(conversation)
 
     if index < 7:
-        history = conversation['texts'][:index]
+        history = conversation["texts"][:index]
     else:
-        history = conversation['texts'][index-5:index]
+        history = conversation["texts"][index - 5 : index]
 
     input_data = {
-        'datetime':conversation['texts'][index]['datetime'],
-        'input':conversation['texts'][index]['input'],
-        'image':conversation['texts'][index]['image'],
-        'history':history
+        "datetime": conversation["texts"][index]["datetime"],
+        "input": conversation["texts"][index]["input"],
+        "image": conversation["texts"][index]["image"],
+        "history": history,
     }
-    response = agent_executor.invoke({"input": input_data, "preamble": preamble})['output']
-    conversation['texts'][index]['output'] = response
-    firebase_data.save_output(id, conversation)
+    response = agent_executor.invoke({"input": input_data, "preamble": preamble})[
+        "output"
+    ]
+    conversation["texts"][index]["output"] = response
+    database.save_output(id, conversation)
     return response
 
-import datetime
+
 def direct_chat(user_input):
     global input_data
     input_data = {
-        'datetime':str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
-        'input':user_input['input'],
-        'image':user_input['image'],
-        'history':[]
+        "datetime": str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+        "input": user_input["input"],
+        "image": user_input["image"],
+        "history": [],
     }
-    response = agent_executor.invoke({"input": input_data, "preamble": preamble})['output']
+    response = agent_executor.invoke({"input": input_data, "preamble": preamble})[
+        "output"
+    ]
     return response
 
 
@@ -146,7 +150,7 @@ Instructions:
 Example Output:
 1. Image Analysis:
 - The image shows yellowing leaves with brown spots. The lower leaves are more affected.
-    
+
 2. Disease Identification:
 - The disease is likely Early Blight.
 - Probable cause: The fungus Alternaria solani, which thrives in warm, moist conditions.
@@ -162,7 +166,7 @@ You have to provide output in exact same manner.
 Don't send it in markdown format, try to send it in simple string as it is.
 """
 
-def direct_image(user_input):
-    image_url = user_input['image']
-    return tools_list.visual_tool.invoke({"prompt":preamble1, "image_url":image_url})
 
+def direct_image(user_input):
+    image_url = user_input["image"]
+    return tools.visual_tool.invoke({"prompt": preamble1, "image_url": image_url})
