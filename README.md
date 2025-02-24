@@ -15,7 +15,7 @@ Our updated **hardware module** is a compact IoT device equipped with:
 - Seamless connectivity via Wi-Fi
 
 ## 📱 Yield Smart Mobile App
-![Yield Smart App](path/to/app-image.jpg)
+[![Yield Smart App](https://i.ibb.co/PvpcMpR7/yielsmartapp.jpg)](https://youtu.be/fTaaoW5zTkY)
 The **Yield Smart App** provides:
 - Real-time plant health insights
 - AI-powered plant recommendations
