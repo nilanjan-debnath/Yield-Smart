@@ -28,5 +28,5 @@ Try the Yield Smart Web App: https://yield-smart-xcwj.onrender.com/
 Join us in transforming agriculture and urban gardening with technology! Contribute, collaborate, or get in touch for more details.
 
 🔗 **Website:** [YourWebsite.com](#)  
-📧 **Contact:** info@yieldsmart.com
+📧 **Contact:** business@theneuronex.com
 
