@@ -12,7 +12,7 @@ Our **hardware module** is an advanced IoT device equipped with:
 - Soil moisture, temperature, and humidity sensors
 - Smart irrigation control for water optimization
 - AI-powered disease detection and alert system
-- Seamless connectivity via Wi-Fi/Bluetooth
+- Seamless connectivity via Wi-Fi
 
 ## 📱 Yield Smart Mobile App
 ![Yield Smart App](path/to/app-image.jpg)
