@@ -3,7 +3,7 @@
 Welcome to **Yield Smart**, an AI and IoT-driven solution designed to revolutionize plant care for urban dwellers and optimize large-scale farming. Our system ensures real-time monitoring, predictive insights, and automation to enhance plant health and maximize agricultural yield.
 
 ## 📽️ Watch Yield Smart in Action
-[![Watch the Video]([https://ibb.co/G4VdSvF7](https://www.youtube.com/watch?v=eD2FErGhSq8))
+[![Watch the Video](https://ibb.co/G4VdSvF7)](https://www.youtube.com/watch?v=eD2FErGhSq8)
 
 ## 🌟 Yield Smart Hardware Module
 ![Yield Smart Hardware](path/to/hardware-image.jpg)
