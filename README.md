@@ -21,6 +21,7 @@ The **Yield Smart App** provides:
 - AI-powered plant recommendations
 - Automated irrigation and environment control
 - Data visualization for informed decision-making
+  
 Try the Yield Smart Web App: https://yield-smart-xcwj.onrender.com/
 
 ## 🚀 Get Involved
