@@ -8,7 +8,7 @@ Welcome to **Yield Smart**, an AI and IoT-driven solution designed to revolution
 ## 🌟 Yield Smart Hardware Module
 ### 📽️ Watch Yield Smart Hardware in Action ▶️
 [![Watch the Video](https://i.ibb.co/mFXrcm96/yieldsmartmodule.jpg)](https://youtu.be/jP1KVcjyUNw)
-Our **hardware module** is an advanced IoT device equipped with:
+Our updated **hardware module** is a compact IoT device equipped with:
 - Soil moisture, temperature, and humidity sensors
 - Smart irrigation control for water optimization
 - AI-powered disease detection and alert system
