@@ -2,12 +2,12 @@ services:
   app:
     build: .
     container_name: fast-api
-    command: fastapi run app/main.py --port 80 --reload
+    command: fastapi run app/main.py --port 8000 --host 127.0.0.1 --reload
     ports:
       - 8080:8000
     volumes:
       - .:/app
-      - groot-venv:/app/.venv
+      - venv:/app/.venv
 
 volumes:
-  groot-venv:
+  venv:
