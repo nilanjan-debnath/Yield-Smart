@@ -3,10 +3,10 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import routes
+from app.controllers.v1 import routes as v1_routers
 
-app = FastAPI()
-app.include_router(routes.router)
+app = FastAPI(title="AI Agent API")
+app.include_router(v1_routers.router)
 
 load_dotenv()
 os.environ["ORIGINS"] = os.getenv("ORIGINS")
@@ -22,5 +22,7 @@ app.add_middleware(
 
 
 @app.get("/")
-async def index() -> dict:
-    return {"message": "API is working!!!"}
+async def root():
+    return {
+        "message": "Welcome to the AI Agent API"
+    }

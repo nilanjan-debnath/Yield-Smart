@@ -40,4 +40,4 @@ def save_output(id, conversation):
     db.collection("conversations").document(id).update(conversation)
 
 
-get_data("G6yFv6mtHXPZRUvP91At")
+# get_data("G6yFv6mtHXPZRUvP91At")
