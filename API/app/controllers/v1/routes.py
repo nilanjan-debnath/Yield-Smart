@@ -13,6 +13,7 @@ async def direct(input: MessageInput) -> dict:
     response = await agent.direct_chat(input.model_dump())
     return {"output": response}
 
+
 @router.post("/chat")
 async def chat(input: ChatInput) -> dict:
     response = await agent.groot_ai(input.model_dump())

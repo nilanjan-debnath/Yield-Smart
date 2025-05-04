@@ -32,7 +32,7 @@ except Exception:
     print(f"Unable to read {preamble_image_file=}")
     preamble_image = "Default system prompt: You are a helpful assistant."
 
-    
+
 prompt = ChatPromptTemplate.from_messages(
     [
         (
