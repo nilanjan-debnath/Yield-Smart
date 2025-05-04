@@ -1,4 +1,4 @@
-from ..agent import agent
+from model import agent
 from fastapi import APIRouter
 from typing import Optional
 from pydantic import BaseModel, HttpUrl

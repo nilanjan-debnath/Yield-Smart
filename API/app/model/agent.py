@@ -1,4 +1,4 @@
-from ..firebase import database
+from firebase import database
 from . import tools
 
 import os
