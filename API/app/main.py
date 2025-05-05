@@ -4,10 +4,12 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.controllers.v1 import routes as v1_routers
+from app.controllers.v1 import routers as v1_routers
+from app.controllers.v2 import routers as v2_routers
 
 app = FastAPI(title="Yield Smart API")
 app.include_router(v1_routers.router)
+app.include_router(v2_routers.router)
 
 load_dotenv()
 os.environ["ORIGINS"] = os.getenv("ORIGINS")

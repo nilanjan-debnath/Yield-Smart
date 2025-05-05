@@ -11,7 +11,7 @@ wheels/
 
 # Environmental variables 
 .env
-# previous file saved for reference
-.prev/
+
+archive/
 
 *.ipynb
