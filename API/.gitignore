@@ -9,7 +9,9 @@ wheels/
 # Virtual environments
 .venv
 
+# Environmental variables 
+.env
 # previous file saved for reference
 .prev/
 
-.env
+*.ipynb
